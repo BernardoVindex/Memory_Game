@@ -1,24 +1,33 @@
 import { Button } from "../Button"
+
 export const Settings = () => {
+  const update = () => {
+    setPairs(value)
+  }
+
   return (
     <>
       <Button
-        onClick={() => setPairs(8)}
+        value='8'
+        onClick={update}
       >
-        8 Paress
+        8 Pares
       </Button>
       <Button
-        onClick={() => setPairs(14)}
+        value='14'
+        onClick={update}
       >
-        14 Paress
+        14 Pares
       </Button>
       <Button
-        onClick={() => setPairs(20)}
+        value='20'
+        onClick={update}
       >
-        20 Paress
+        20 Pares
       </Button>
       <Button
-        onClick={() => setPairs(26)}
+        value='20'
+        onClick={update}
       >
         26 Paress
       </Button>
