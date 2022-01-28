@@ -1,10 +1,11 @@
 import { useState } from "react"
 
 export const appContext = () => {
-  const [pairs, setPairs] = useState(5)
+  const [pairs, setPairs] = useState(8)
 
   return {
-    pairs
+    pairs,
+    setPairs
   }
 }
 
