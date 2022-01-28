@@ -1,7 +1,12 @@
 import { Figure } from './styles'
 
-export const Card = () => {
+export const Card = (props) => {
+  console.log({ props })
   return (
-    <Figure />
+    <>
+      <Figure>
+        {props.value}
+      </Figure>
+    </>
   ) 
 }

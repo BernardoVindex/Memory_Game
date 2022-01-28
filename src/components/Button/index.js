@@ -1,8 +1,15 @@
 import { ButtonForm } from "./style"
-export const Button = ({ children }) => {
+export const Button = (props) => {
+  
+  const hanlderPairs = () => {
+    props.setFunction(props.value)
+  }
+
   return (
-    <ButtonForm>
-      {children}
+    <ButtonForm
+      onClick={hanlderPairs}
+    >
+      {props.buttonName || props.value}
     </ButtonForm>
   )
-}
+} 

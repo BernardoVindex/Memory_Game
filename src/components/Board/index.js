@@ -1,11 +1,21 @@
-import { Card } from '../Card/index'
+import { Card } from "../Card"
 
-export const Board = () => {
+export const Board = (props) => {
+  console.log(props.cards)
+  console.log(props.cards[0].id)
 
   return (
     <>
-      <Card />
-      <h1>El estado es {pairs}</h1>
+      <section>
+        {props.cards.map( card => {
+          return (
+          <Card 
+            key={card.id}
+            value={card.value}
+          />
+          )
+        })}
+      </section>
     </>
   )
 }
