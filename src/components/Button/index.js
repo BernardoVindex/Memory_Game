@@ -1,4 +1,4 @@
-import { ButtonForm } from "./style"
+import { ButtonForm } from "./styles"
 export const Button = (props) => {
   
   const hanlderPairs = () => {

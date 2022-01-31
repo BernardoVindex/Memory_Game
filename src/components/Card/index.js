@@ -4,7 +4,7 @@ export const Card = (props) => {
   console.log({ props })
   return (
     <>
-      <Figure>
+      <Figure className={props.id}>
         {props.value}
       </Figure>
     </>
