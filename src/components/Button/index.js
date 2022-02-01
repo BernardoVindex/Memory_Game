@@ -1,13 +1,13 @@
 import { ButtonForm } from "./styles"
 export const Button = (props) => {
+  // console.log(props)
+
   
-  const hanlderPairs = () => {
-    props.setFunction(props.value)
-  }
+
 
   return (
     <ButtonForm
-      onClick={hanlderPairs}
+      // onClick={hanlderConfig}
     >
       {props.buttonName || props.value}
     </ButtonForm>

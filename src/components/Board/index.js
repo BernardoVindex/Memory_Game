@@ -1,10 +1,8 @@
 import { Card } from "../Card"
 
 export const Board = (props) => {
-  // console.log(props.cards)
-  // console.log(props.cards[0].id)
 
-  return (
+    return (
     <>
       <section>
         {props.cards.map( card => {

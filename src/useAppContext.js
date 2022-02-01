@@ -1,11 +1,26 @@
 import { useState } from "react"
 
 export const useAppContext = () => {
-  const [typeCards, setTypeCards] = useState('Num')
+  const [configGame, setConfigGame] = useState({
+    typeCards: 'Img',
+    pairs: 4,
+    players: 1
+  })
+  
+
+  
+  const [typeCards, setTypeCards] = useState('Img')
   const [pairs, setPairs] = useState(8)
   const [players, setPlayers] = useState(1)
   const [start, setStart] = useState(false)
-  const [deck, setDeck] = useState()
+  const [cards, setCards] = useState([
+    {id:1,value:1},
+    {id:2,value:2},
+    {id:3,value:3},
+    {id:4,value:4}
+  ])
+
+
 
   const numDeck = () => {
     const sortedDeck = [] 
@@ -13,38 +28,27 @@ export const useAppContext = () => {
     for (let i = pairs; i > 0; i--){
         sortedDeck.push({id:undefined, value:i})
     }
-  return randomSorter(sortedDeck)
+
+   randomSorter(sortedDeck)
   }
 
   const randomSorter = (sortedDeck) => {
-    const duplicatedDeck = [...sortedDeck,...sortedDeck]
-    const playebleDeck = []
-
-    while (duplicatedDeck.length > 0) {
-        let target = Math.floor(Math.random() * duplicatedDeck.length)
-
-        playebleDeck.push(duplicatedDeck[target])
-        duplicatedDeck.splice(target, 1)
-    }
-
-    setDeck(playebleDeck)
+    const playebleDeck = [...sortedDeck,...sortedDeck]
+    playebleDeck.sort(() => Math.random() - 0.5)
+    setCards(playebleDeck)
   }
 
-  if (typeCards === 'Num') {
-    numDeck(pairs)
-  }
+  //  if (typeCards === 'Num') {
+  //    numDeck()
+  //  }
 
-  console.log({ deck })
-  console.log({ pairs })
+  console.log({ configGame })
+  console.log(configGame.typeCards)
+  console.log(configGame.pairs)
+  console.log(configGame.players)
+    
   return {
-    typeCards,
-    pairs,
-    players,
-    start,
-    deck,
-    setPairs,
-    setTypeCards,
-    setPlayers,
-    setStart
+    configGame,
+    setConfigGame
   }
 }
