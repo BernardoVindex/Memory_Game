@@ -1,19 +1,20 @@
 import { Card } from "../Card"
+import { GridSection } from "./styles"
 
-export const Board = (props) => {
-
+export const Board = ({ cards }) => {
+    
     return (
     <>
-      <section>
-        {props.cards.map( card => {
+      <GridSection>
+        {cards.map( card => {
           return (
           <Card 
             key={card.id}
             value={card.value}
           />
           )
-        })}
-      </section>
+        })}       
+      </GridSection>
     </>
   )
 }

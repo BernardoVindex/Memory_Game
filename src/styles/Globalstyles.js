@@ -22,17 +22,19 @@ export const GlobalStyles = createGlobalStyle`
     outline: 0;
   }
   body {
-    background: #fefefe;
+    background-color: #fefefe;
     height: 100vh;
-    margin: 0 auto;
+    margin: 0;
     max-width: 500px;
     overscroll-behavior: none;
     width: 100%;
   }
   #app {
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.1);
     overflow-x: hidden;
     min-height: 100vh;
     padding-bottom: 10px;
+    
   }
 `

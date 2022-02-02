@@ -6,4 +6,5 @@ export const Figure = styled.div`
  color: white;
  border-radius: 50%;
  background-color: #162938;
+ font-size: 2.25rem;
 `
