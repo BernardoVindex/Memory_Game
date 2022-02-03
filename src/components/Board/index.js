@@ -7,7 +7,7 @@ export const Board = (props) => {
   return (
     <>
       <section>
-        {props.cards.map( card => {
+        {props.deck.map( card => {
           return (
           <Card 
             key={card.id}

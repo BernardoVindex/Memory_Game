@@ -13,14 +13,10 @@ export const App = () => {
     deck
     } = useAppContext()
 
-  console.log({deck})
-
   return (
   <>
     <GlobalStyles />
-    <Board
-      cards={deck}
-    >
+    <Board>
     </Board>
     <Settings />
   </>  

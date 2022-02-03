@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 export const useAppContext = () => {
   const [typeCards, setTypeCards] = useState('Num')
@@ -13,6 +13,7 @@ export const useAppContext = () => {
     for (let i = pairs; i > 0; i--){
         sortedDeck.push({id:undefined, value:i})
     }
+
   return randomSorter(sortedDeck)
   }
 
@@ -24,18 +25,19 @@ export const useAppContext = () => {
         let target = Math.floor(Math.random() * duplicatedDeck.length)
 
         playebleDeck.push(duplicatedDeck[target])
+        
         duplicatedDeck.splice(target, 1)
     }
 
     setDeck(playebleDeck)
   }
-
-  if (typeCards === 'Num') {
-    numDeck(pairs)
-  }
+  
+    if (typeCards === 'Num') {
+      numDeck(pairs)
+    }
 
   console.log({ deck })
-  console.log({ pairs })
+  console.log({ typeCards })
   return {
     typeCards,
     pairs,
