@@ -15,13 +15,17 @@ export const useAppContext = () => {
     {id:4,value:4}
   ])
 
+  const [openModal, setOpenModal] = useState({
+    settingOn: false
+  })
+
 
 
   const numDeck = () => {
     const sortedDeck = [] 
 
     for (let i = configGame.pairs; i > 0; i--){
-        sortedDeck.push({id:undefined, value:i})
+        sortedDeck.push({value:i})
     }
 
    randomSorter(sortedDeck)
@@ -31,12 +35,15 @@ export const useAppContext = () => {
     const playebleDeck = [...sortedDeck,...sortedDeck]
     
     playebleDeck.sort(() => Math.random() - 0.5)
+    // playebleDeck.forEach((card, i) => card.id = i + 1) 
     
+
     setCards(playebleDeck)
     setConfigGame( prevState => ({
       ...prevState,
       start: false
     }))
+    setOpenModal({settingOn : false})
   }
 
     if (configGame.start === true) {
@@ -47,10 +54,14 @@ export const useAppContext = () => {
   // console.log(configGame.typeCards)
   // console.log(configGame.pairs)
   // console.log(configGame.players)
-    
+   
+  console.log(cards)
+
   return {
     cards,
     configGame,
+    openModal, 
+    setOpenModal,
     setConfigGame
   }
 }

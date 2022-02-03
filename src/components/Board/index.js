@@ -6,7 +6,8 @@ export const Board = ({ cards }) => {
     return (
     <>
       <GridSection>
-        {cards.map( card => {
+        {cards.map( (card, i) => {
+           card.id = i + 1
           return (
           <Card 
             key={card.id}
