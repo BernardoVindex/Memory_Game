@@ -70,3 +70,9 @@ export const App = () => {
   </>  
   )
 }
+
+
+/**
+  Una funcin que tome regitro del value del target 'card'
+
+ */

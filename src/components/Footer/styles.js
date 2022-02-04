@@ -6,5 +6,5 @@ export const Footer = styled.footer`
   height: 100px;
   background: grey;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
 `

@@ -1,12 +1,12 @@
 import styled, { css } from "styled-components";
 
 export const  ButtonForm = styled.button`
-  min-width: 50px;
+  min-width: 75px;
   min-height: 30px;
   color: white;
   background-color: #162938;
   border-radius: 5px;
-  margin: 0 5px;
+  margin: 5px;
   
 
   ${props => props.buttonName === 'Start Game!' && css`
@@ -18,7 +18,7 @@ export const  ButtonForm = styled.button`
   `} 
 
   ${props => props.buttonName === 'Restart' && css`
-  margin: 25px 0; 
+  margin: 0 0 0 auto; 
   border-radius: 5px;
   background-color: orange;
   `} 

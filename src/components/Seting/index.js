@@ -20,15 +20,15 @@ export const Settings = ({ configGame, setConfigGame }) => {
           />
         <Tittle>Número de pares {configGame.pairs}</Tittle>
           <Button
-            buttonName='8 Pares'
+            buttonName='5 Pares'
             typeState='pairs'
-            value={8}
+            value={5}
             setConfigGame={setConfigGame}
           />
           <Button
-            buttonName='14 Pares'
+            buttonName='10 Pares'
             typeState='pairs'
-            value={14}
+            value={10}
             setConfigGame={setConfigGame}
           />
           <Button
@@ -38,9 +38,9 @@ export const Settings = ({ configGame, setConfigGame }) => {
             setConfigGame={setConfigGame}
           />
           <Button
-            buttonName='26 Pares'
+            buttonName='30 Pares'
             typeState='pairs'
-            value={26}
+            value={30}
             setConfigGame={setConfigGame}
           />
         <Tittle>Número de jugadores {configGame.players}</Tittle>
