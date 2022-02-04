@@ -2,7 +2,9 @@ import { Card } from "../Card"
 import { GridSection } from "./styles"
 
 export const Board = ({ cards }) => {
-    
+  // const renderFunc = props.children || props.rende  
+
+  
     return (
     <>
       <GridSection>
@@ -14,8 +16,11 @@ export const Board = ({ cards }) => {
             value={card.value}
           />
           )
-        })}       
+        })}
+        {/* {props.cards.map(renderFunc)}
+        {props.children} */}
       </GridSection>
+    
     </>
   )
 }

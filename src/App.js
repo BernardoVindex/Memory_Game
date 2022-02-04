@@ -6,6 +6,7 @@ import { ModalSection } from './components/Modal/styles'
 import { Button } from './components/Button'
 import { HeaderApp } from './components/Header'
 import { FooterApp } from './components/Footer'
+import { PlayerCards } from './components/PlayerCard'
 
 export const App = () => {
   
@@ -13,10 +14,11 @@ export const App = () => {
     cards,
     configGame,
     openModal, 
+    players, 
+    setPlayers,
     setOpenModal,
     setConfigGame
     } = useAppContext()
-
 
   return (
   <>
@@ -37,7 +39,6 @@ export const App = () => {
         buttonName='Settings'
         setConfigGame={setOpenModal}     
       />
- 
     </HeaderApp>
     
     <Board
@@ -53,8 +54,19 @@ export const App = () => {
       </ModalSection>
     )}
 
-    <FooterApp>
+    <FooterApp
+      players={players}
+      setPlayers={setPlayers}
+    >
+      { player => (
+        <PlayerCards
+          key={player.playerNum}
+          player={player.playerNum}
+        />
+      )}
+    
     </FooterApp>
+    
   </>  
   )
 }

@@ -1,10 +1,13 @@
 import { Footer } from "./styles"
 
-export const FooterApp = () => {
+export const FooterApp = (props) => {
+  const renderFunc = props.children || props.rende
+    
   return (
     <>
       <Footer>
-        <h1>Footer de la App</h1>
+      {props.players.map(renderFunc)}
+      {props.children}
       </Footer>
     </>
   )

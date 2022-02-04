@@ -19,7 +19,10 @@ export const useAppContext = () => {
     settingOn: false
   })
 
-
+  const [players, setPlayers] = useState([
+    {playerNum: 1, moves: 0, pairs: 0},
+    {playerNum: 2, moves: 0, pairs: 0}
+  ])
 
   const numDeck = () => {
     const sortedDeck = [] 
@@ -29,6 +32,10 @@ export const useAppContext = () => {
     }
 
    randomSorter(sortedDeck)
+  }
+
+  const stateSetter = () => {
+
   }
 
   const randomSorter = (sortedDeck) => {
@@ -60,7 +67,9 @@ export const useAppContext = () => {
   return {
     cards,
     configGame,
-    openModal, 
+    openModal,
+    players,
+    setPlayers,
     setOpenModal,
     setConfigGame
   }
