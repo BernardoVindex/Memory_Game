@@ -1,15 +1,20 @@
 import { ButtonForm } from "./styles"
-export const Button = (props) => {
+
+export const Button = ({ buttonName, value, setConfigGame, typeState }) => {
   
-  const hanlderPairs = () => {
-    props.setFunction(props.value)
+  const hanlderConfig = () => {
+    setConfigGame( prevState => ({
+      ...prevState,
+      [typeState] : value
+    }))
   }
 
   return (
     <ButtonForm
-      onClick={hanlderPairs}
+      buttonName={buttonName}
+      onClick={hanlderConfig}
     >
-      {props.buttonName || props.value}
+      {buttonName || value}
     </ButtonForm>
   )
 } 

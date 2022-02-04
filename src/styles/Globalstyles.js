@@ -4,6 +4,7 @@ export const GlobalStyles = createGlobalStyle`
   html {
     box-sizing: border-box;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 62.5%; 
   }
         
   *, *::before, *::after {
@@ -22,17 +23,24 @@ export const GlobalStyles = createGlobalStyle`
     outline: 0;
   }
   body {
-    background: #fefefe;
+    background-color: #fefefe;
     height: 100vh;
     margin: 0 auto;
+    width: 300px;
     max-width: 500px;
     overscroll-behavior: none;
     width: 100%;
   }
   #app {
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.1);
     overflow-x: hidden;
     min-height: 100vh;
     padding-bottom: 10px;
+    border: 1px solid black;
+
   }
 `

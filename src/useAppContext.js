@@ -1,52 +1,76 @@
 import { useEffect, useState } from "react"
 
 export const useAppContext = () => {
-  const [typeCards, setTypeCards] = useState('Num')
-  const [pairs, setPairs] = useState(8)
-  const [players, setPlayers] = useState(1)
-  const [start, setStart] = useState(false)
-  const [deck, setDeck] = useState()
+  const [configGame, setConfigGame] = useState({
+    typeCards: 'Img',
+    pairs: 4,
+    players: 4,
+    start: false
+  })
+  
+  const [cards, setCards] = useState([
+    {id:1,value:1},
+    {id:2,value:2},
+    {id:3,value:3},
+    {id:4,value:4}
+  ])
+
+  const [openModal, setOpenModal] = useState({
+    settingOn: false
+  })
+
+  const [players, setPlayers] = useState([
+    {playerNum: 1, moves: 0, pairs: 0},
+    {playerNum: 2, moves: 0, pairs: 0}
+  ])
 
   const numDeck = () => {
     const sortedDeck = [] 
 
-    for (let i = pairs; i > 0; i--){
-        sortedDeck.push({id:undefined, value:i})
+    for (let i = configGame.pairs; i > 0; i--){
+        sortedDeck.push({value:i})
     }
 
-  return randomSorter(sortedDeck)
+   randomSorter(sortedDeck)
+  }
+
+  const stateSetter = () => {
+
   }
 
   const randomSorter = (sortedDeck) => {
-    const duplicatedDeck = [...sortedDeck,...sortedDeck]
-    const playebleDeck = []
+    const playebleDeck = [...sortedDeck,...sortedDeck]
+    
+    playebleDeck.sort(() => Math.random() - 0.5)
+    // playebleDeck.forEach((card, i) => card.id = i + 1) 
+    
 
-    while (duplicatedDeck.length > 0) {
-        let target = Math.floor(Math.random() * duplicatedDeck.length)
-
-        playebleDeck.push(duplicatedDeck[target])
-        
-        duplicatedDeck.splice(target, 1)
-    }
-
-    setDeck(playebleDeck)
+    setCards(playebleDeck)
+    setConfigGame( prevState => ({
+      ...prevState,
+      start: false
+    }))
+    setOpenModal({settingOn : false})
   }
-  
-    if (typeCards === 'Num') {
-      numDeck(pairs)
+
+    if (configGame.start === true) {
+      numDeck()
     }
 
-  console.log({ deck })
-  console.log({ typeCards })
+  // console.log({ configGame })
+  // console.log(configGame.typeCards)
+  // console.log(configGame.pairs)
+  // console.log(configGame.players)
+   
+  console.log(cards)
+
   return {
-    typeCards,
-    pairs,
+    cards,
+    configGame,
+    openModal,
     players,
-    start,
-    deck,
-    setPairs,
-    setTypeCards,
     setPlayers,
-    setStart
+    setOpenModal,
+    setConfigGame
   }
 }
