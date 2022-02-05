@@ -29,6 +29,8 @@ export const useAppContext = () => {
     settingOn: false
   })
 
+  const [turn, setTurn] = useState([])
+
 
   /**********************************************************/
   /***********              Handlers               **********/
@@ -63,9 +65,8 @@ export const useAppContext = () => {
   /**********************************************************/
   
 
-  const firstFlip = () => {
-    
-  }
+
+
 
 
   /**********************************************************/
@@ -98,11 +99,15 @@ export const useAppContext = () => {
     handlerPlayers()
   }
 
+  // console.log(turn)
+
   return {
     cards,
     configGame,
     openModal,
     players,
+    turn,
+    setTurn,
     setPlayers,
     setOpenModal,
     setConfigGame
