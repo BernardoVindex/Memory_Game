@@ -1,14 +1,14 @@
-import { Card } from "../Card"
 import { GridSection } from "./styles"
 
-export const Board = ({ cards }) => {
-  // const renderFunc = props.children || props.rende  
-
+export const Board = (props) => {
+  const renderFunc = props.render
   
+  console.log(props)
     return (
     <>
       <GridSection>
-        {cards.map( (card, i) => {
+        
+        {/* {cards.map( (card, i) => {
            card.id = i + 1
           return (
           <Card 
@@ -16,9 +16,8 @@ export const Board = ({ cards }) => {
             value={card.value}
           />
           )
-        })}
-        {/* {props.cards.map(renderFunc)}
-        {props.children} */}
+        })} */}
+        {props.cards.map(renderFunc)}
       </GridSection>
     
     </>

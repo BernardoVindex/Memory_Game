@@ -1,74 +1,80 @@
 import { Button } from "../Button"
 import { SettingsSection, Tittle } from "./styles"
 
-export const Settings = ({ configGame, setConfigGame }) => {
-  console.log({setConfigGame})
+export const Settings = ({ configGame, setConfigGame, setCards }) => {
+  
    
   return (
     <>
       <SettingsSection>
         <Tittle>Tipo de cartas {configGame.typeCards}</Tittle>
           <Button 
+            className='Num' 
             value='Num'
             typeState='typeCards'
-            setConfigGame={setConfigGame}
+            setFunction={setCards}
           />
           <Button 
+            className='Img' 
             value='Img'
             typeState='typeCards'
-            setConfigGame={setConfigGame}
+            setFunction={setCards}
           />
         <Tittle>Número de pares {configGame.pairs}</Tittle>
           <Button
-            buttonName='5 Pares'
-            typeState='pairs'
-            value={5}
-            setConfigGame={setConfigGame}
+            className='5 Pares'
+             value={5}
+             typeState='pairs'
+             setFunction={setCards}
           />
           <Button
-            buttonName='10 Pares'
-            typeState='pairs'
-            value={10}
-            setConfigGame={setConfigGame}
+            className='10 Pares'
+             value={10}
+             typeState='pairs'
+             setFunction={setCards}
           />
           <Button
-            buttonName='20 Pares'
-            typeState='pairs'
-            value={20}
-            setConfigGame={setConfigGame}
+            className='20 Pares'
+             value={20}
+             typeState='pairs'
+             setFunction={setCards}
           />
           <Button
-            buttonName='30 Pares'
-            typeState='pairs'
-            value={30}
-            setConfigGame={setConfigGame}
+            className='30 Pares'
+             value={30}
+             typeState='pairs'
+             setFunction={setCards}
           />
         <Tittle>Número de jugadores {configGame.players}</Tittle>
           <Button 
-            value='1'
-            typeState='players'
-            setConfigGame={setConfigGame}
+            className='1 Jugador'
+             value='1'
+             typeState='players'
+             setFunction={setCards}
           />
           <Button 
-            value='2'
-            typeState='players'
-            setConfigGame={setConfigGame}
+            className='2 Jugadores'
+             value='2'
+             typeState='players'
+             setFunction={setCards}
           />
           <Button 
-            value='3'
-            typeState='players'
-            setConfigGame={setConfigGame}
+            className='3 Jugadores'
+             value='3'
+             typeState='players'
+             setFunction={setCards}
           />
           <Button 
-            value='4'
-            typeState='players'
-            setConfigGame={setConfigGame}
+            className='4 Jugadores'
+             value='4'
+             typeState='players'
+             setFunction={setCards}
           />
           <Button 
-            value={!configGame.start}
+            className='Start Game!'
+            value={!configGame.start} 
             typeState='start'
-            buttonName='Start Game!'
-            setConfigGame={setConfigGame}        
+            setFunction={setCards}        
           />
         </SettingsSection>        
     </>

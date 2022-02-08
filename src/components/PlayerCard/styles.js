@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const PlayerContainer = styled.section`
+export const PlayerContainer = styled.li`
   width: calc(25% - 5px);
   height: 70px;
   padding: 5px;

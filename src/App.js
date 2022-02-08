@@ -7,6 +7,7 @@ import { Button } from './components/Button'
 import { HeaderApp } from './components/Header'
 import { FooterApp } from './components/Footer'
 import { PlayerCards } from './components/PlayerCard'
+import { Card } from './components/Card'
 
 export const App = () => {
   
@@ -15,6 +16,7 @@ export const App = () => {
     configGame,
     openModal, 
     players, 
+    setCards,
     setPlayers,
     setOpenModal,
     setConfigGame
@@ -28,28 +30,52 @@ export const App = () => {
         Logo
       </div>
       <Button
+        className='Restart'
         value={!configGame.start}
         typeState='start'
-        buttonName='Restart'
-        setConfigGame={setConfigGame}         
+        setConfigGame={setConfigGame}
+        setFunction={setCards}
+        
       />
       <Button
-        value={true}
+        className='Settings'
+        value={true} 
         typeState='settingOn'
-        buttonName='Settings'
-        setConfigGame={setOpenModal}     
+        setFunction={setOpenModal}
       />
     </HeaderApp>
     
+    {/* <Board
+      cards={cards}
+    /> */}
+
     <Board
       cards={cards}
-    /> 
+
+      render = { (card, index) => (
+        <Card 
+        key={index}
+        value={card.value}
+        fliped={card.fliped}
+        matched={card.matched}
+        setCards={card.setCards}
+      />
+    )}
+    />
+      {/* { (card)=> (
+          <Card 
+          key={card.id}
+          value={card.value}
+        />
+      )} */}
+    {/* </Board>  */}
  
     {(openModal.settingOn) && (
       <ModalSection>
         <Settings
           configGame={configGame}
           setConfigGame={setConfigGame}
+          setCards={setCards}
         />
       </ModalSection>
     )}
@@ -57,15 +83,21 @@ export const App = () => {
     <FooterApp
       players={players}
       setPlayers={setPlayers}
-    >
-      { player => (
+
+      render = { player => (
         <PlayerCards
           key={player.playerNum}
           player={player.playerNum}
         />
-      )}
-    
-    </FooterApp>
+      )} 
+    />
+      {/* { player => (
+        <PlayerCards
+          key={player.playerNum}
+          player={player.playerNum}
+        />
+      )}  */}
+    {/* </FooterApp> */}
     
   </>  
   )

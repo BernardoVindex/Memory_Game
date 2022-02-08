@@ -9,17 +9,17 @@ export const useAppContext = () => {
   })
   
   const [cards, setCards] = useState([
-    {id:1, value:1, fliped: false, matched:false},
-    {id:2, value:2, fliped: false, matched:false},
-    {id:3, value:3, fliped: false, matched:false},
-    {id:4, value:4, fliped: false, matched:false},
-    {id:5, value:5, fliped: false, matched:false},
-    {id:1, value:1, fliped: false, matched:false},
-    {id:2, value:2, fliped: false, matched:false},
-    {id:3, value:3, fliped: false, matched:false},
-    {id:4, value:4, fliped: false, matched:false},
-    {id:5, value:5, fliped: false, matched:false},
-  ])
+    {value:1, fliped: false, matched:false},
+    {value:2, fliped: false, matched:false},
+    {value:3, fliped: false, matched:false},
+    {value:4, fliped: false, matched:false},
+    {value:5, fliped: false, matched:false},
+    {value:1, fliped: false, matched:false},
+    {value:2, fliped: false, matched:false},
+    {value:3, fliped: false, matched:false},
+    {value:4, fliped: false, matched:false},
+    {value:5, fliped: false, matched:false},
+  ]) 
 
   const [players, setPlayers] = useState([
     {playerNum: 1, moves: 0, pairs: 0, time: 0, onMach: true }
@@ -28,10 +28,7 @@ export const useAppContext = () => {
   const [openModal, setOpenModal] = useState({
     settingOn: false
   })
-
-  const [turn, setTurn] = useState([])
-
-
+  
   /**********************************************************/
   /***********              Handlers               **********/
   /**********************************************************/
@@ -60,16 +57,7 @@ export const useAppContext = () => {
   }
 
 
-  /**********************************************************/
-  /***********               Engine                **********/
-  /**********************************************************/
-  
-
-
-
-
-
-  /**********************************************************/
+   /**********************************************************/
   /***********            Helper Funct             **********/
   /**********************************************************/
 
@@ -77,10 +65,11 @@ export const useAppContext = () => {
   const randomSorter = (sortedDeck) => {
     const playebleDeck = [...sortedDeck,...sortedDeck]
     playebleDeck.sort(() => Math.random() - 0.5)
-    // playebleDeck.forEach((card, i) => card.id = i + 1) 
     
-
     setCards(playebleDeck)
+
+    // setCards(playebleDeck.forEach((card, i) => card.id = i + 1) )
+
     setConfigGame( prevState => ({
       ...prevState,
       start: false
@@ -99,15 +88,14 @@ export const useAppContext = () => {
     handlerPlayers()
   }
 
-  // console.log(turn)
+  console.log(cards)
 
   return {
     cards,
     configGame,
     openModal,
     players,
-    turn,
-    setTurn,
+    setCards,
     setPlayers,
     setOpenModal,
     setConfigGame

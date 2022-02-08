@@ -1,34 +1,17 @@
 import { Figure } from './styles'
-import { useAppContext } from '../../useAppContext'
 
-export const Card = (props) => {
-  
-  const  {
-    turn,
-    setTurn,
-  } = useAppContext()
-  
-  const hanlderTurn = () => {
+export const Card = ({ value, fliped, matched, setCards }) => {
     
-    (turn.length !== 1)
-      ? setTurn(props.value)
-      : setTurn( prevState => prevState + props.value) 
 
-    console.log(turn)
 
-    // setConfigGame( prevState => ({
-    //   ...prevState,
-    //   [typeState] : value
-    // }))
-  }
-
+  
   return (
     <>
       <Figure 
-        className={props.id}
-        onClick={hanlderTurn}
+        className={value}
+        // onClick={hanlderFlip}
       >
-        {props.value}
+        {value}
       </Figure>
     </>
   ) 

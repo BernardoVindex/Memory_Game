@@ -9,7 +9,7 @@ export const  ButtonForm = styled.button`
   margin: 5px;
   
 
-  ${props => props.buttonName === 'Start Game!' && css`
+  ${props => props.className === 'Start Game!' && css`
   margin: 25px 0; 
   width: 80%;
   font-size: 2rem;
@@ -17,7 +17,7 @@ export const  ButtonForm = styled.button`
   background-color: orange;
   `} 
 
-  ${props => props.buttonName === 'Restart' && css`
+  ${props => props.className === 'Restart' && css`
   margin: 0 0 0 auto; 
   border-radius: 5px;
   background-color: orange;
