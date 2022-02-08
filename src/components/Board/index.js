@@ -2,8 +2,7 @@ import { GridSection } from "./styles"
 
 export const Board = (props) => {
   const renderFunc = props.render
-  
-  console.log(props)
+
     return (
     <>
       <GridSection>

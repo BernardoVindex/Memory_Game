@@ -1,31 +1,28 @@
 import { Figure } from './styles'
 
-export const Card = ({ value, fliped, matched, setCards }) => {
-    
-
-
+export const Card = (props) => {
   
+  console.log({props})
+
+  const hanlderFlip = () => {
+    props.handlerTurn(props.cardID)
+    
+    
+    // props.setCards( prevState => ({
+    //   ...prevState,
+    //   [props.fliped] : true
+    // }))
+  }
+    
   return (
     <>
-      <Figure 
-        className={value}
-        // onClick={hanlderFlip}
+      <Figure     
+        className={props.value}
+        onClick={hanlderFlip}
+        fliped={props.fliped}
       >
-        {value}
+        {props.value}
       </Figure>
     </>
   ) 
 }
-
-// Base function
-
-// const fisrtFinct = (a) => {
-//   console.log(a)
-//   secondFunct(a)
-// }
-
-// const secondFunct = (a, b = 2) => {
-//   console.log(a + b)
-// }
-
-// fisrtFinct(5)

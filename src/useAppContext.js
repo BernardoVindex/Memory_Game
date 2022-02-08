@@ -1,13 +1,7 @@
 import { useState } from "react"
 
 export const useAppContext = () => {
-  const [configGame, setConfigGame] = useState({
-    typeCards: 'Img',
-    pairs: 5,
-    players: 1,
-    start: false
-  })
-  
+ 
   const [cards, setCards] = useState([
     {value:1, fliped: false, matched:false},
     {value:2, fliped: false, matched:false},
@@ -21,30 +15,36 @@ export const useAppContext = () => {
     {value:5, fliped: false, matched:false},
   ]) 
 
+  console.log(cards)
+
   const [players, setPlayers] = useState([
     {playerNum: 1, moves: 0, pairs: 0, time: 0, onMach: true }
   ])
 
-  const [openModal, setOpenModal] = useState({
-    settingOn: false
-  })
-  
-  /**********************************************************/
-  /***********              Handlers               **********/
-  /**********************************************************/
-  
-  
-  const handlerNumCards = () => {
+  const [openModal, setOpenModal] = useState(false)
+
+
+  const handlerDeck = (value) => {
     const sortedDeck = [] 
-    for (let i = configGame.pairs; i > 0; i--){
-        sortedDeck.push({value:i})
+    for (let i = value; i > 0; i--){
+        sortedDeck.push({value:i, fliped: false, matched:false})
     }
-   randomSorter(sortedDeck)
+    
+    const fullDeck = [...sortedDeck,...sortedDeck]
+
+    handlerShuffler(fullDeck)
   }
 
-  const handlerPlayers = () => {
+  const handlerShuffler = (deck) => {
+    deck.sort(() => Math.random() - 0.5)
+    
+    setCards(deck)
+    setOpenModal(false)
+  }
+
+  const handlerPlayers = (value) => {
     const party = [] 
-    for (let i = 1 ; i <= configGame.players; i++){
+    for (let i = 1 ; i <= value; i++){
         party.push({
           playerNum: i,
           moves: 0,
@@ -56,48 +56,30 @@ export const useAppContext = () => {
    setPlayers(party)
   }
 
-
-   /**********************************************************/
-  /***********            Helper Funct             **********/
-  /**********************************************************/
-
-
-  const randomSorter = (sortedDeck) => {
-    const playebleDeck = [...sortedDeck,...sortedDeck]
-    playebleDeck.sort(() => Math.random() - 0.5)
-    
-    setCards(playebleDeck)
-
-    // setCards(playebleDeck.forEach((card, i) => card.id = i + 1) )
-
-    setConfigGame( prevState => ({
-      ...prevState,
-      start: false
-    }))
-    setOpenModal({settingOn : false})
+  const handlerTurn = (cardID) => {
+    console.log(cardID)
+    cards[cardID].fliped = true
+    console.log(cards)
   }
 
-  
-  /**********************************************************/
-  /***********             Init Game               **********/
-  /**********************************************************/
-    
-  
-  if (configGame.start === true) {
-    handlerNumCards()
-    handlerPlayers()
-  }
-
-  console.log(cards)
+  // const hanlderConfig = () => {
+  //   setFunction( prevState => ({
+  //     ...prevState,
+  //     [typeState] : value
+  //   }))
+  // }
 
   return {
     cards,
-    configGame,
     openModal,
     players,
     setCards,
     setPlayers,
     setOpenModal,
-    setConfigGame
+    
+    handlerDeck,
+    handlerShuffler,
+    handlerPlayers,
+    handlerTurn,
   }
 }

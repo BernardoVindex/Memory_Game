@@ -10,16 +10,19 @@ import { PlayerCards } from './components/PlayerCard'
 import { Card } from './components/Card'
 
 export const App = () => {
-  
+
   const {
     cards,
-    configGame,
-    openModal, 
-    players, 
+    openModal,
+    players,
     setCards,
     setPlayers,
     setOpenModal,
-    setConfigGame
+    
+    handlerDeck,
+    handlerShuffler,
+    handlerPlayers,
+    handlerTurn,
     } = useAppContext()
 
   return (
@@ -31,11 +34,9 @@ export const App = () => {
       </div>
       <Button
         className='Restart'
-        value={!configGame.start}
-        typeState='start'
-        setConfigGame={setConfigGame}
-        setFunction={setCards}
-        
+        value={cards.length / 2}
+        typeState='restart'
+        setFunction={handlerDeck}
       />
       <Button
         className='Settings'
@@ -44,10 +45,6 @@ export const App = () => {
         setFunction={setOpenModal}
       />
     </HeaderApp>
-    
-    {/* <Board
-      cards={cards}
-    /> */}
 
     <Board
       cards={cards}
@@ -55,27 +52,30 @@ export const App = () => {
       render = { (card, index) => (
         <Card 
         key={index}
+        cardID={index}
         value={card.value}
         fliped={card.fliped}
         matched={card.matched}
-        setCards={card.setCards}
+        handlerTurn={handlerTurn}
+
       />
     )}
     />
-      {/* { (card)=> (
-          <Card 
-          key={card.id}
-          value={card.value}
-        />
-      )} */}
-    {/* </Board>  */}
+
  
-    {(openModal.settingOn) && (
+    {(openModal) && (
       <ModalSection>
         <Settings
-          configGame={configGame}
-          setConfigGame={setConfigGame}
+          cards={cards}
+          openModal={openModal}
+          players={players}
           setCards={setCards}
+          setPlayers={setPlayers}
+          setOpenModal={setOpenModal}
+          
+          handlerDeck={handlerDeck}
+          handlerShuffler={handlerShuffler}
+          handlerPlayers={handlerPlayers}
         />
       </ModalSection>
     )}
@@ -91,14 +91,6 @@ export const App = () => {
         />
       )} 
     />
-      {/* { player => (
-        <PlayerCards
-          key={player.playerNum}
-          player={player.playerNum}
-        />
-      )}  */}
-    {/* </FooterApp> */}
-    
   </>  
   )
 }

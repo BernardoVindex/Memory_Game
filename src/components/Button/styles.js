@@ -3,6 +3,7 @@ import styled, { css } from "styled-components";
 export const  ButtonForm = styled.button`
   min-width: 75px;
   min-height: 30px;
+  height: 40px;
   color: white;
   background-color: #162938;
   border-radius: 5px;
@@ -21,5 +22,5 @@ export const  ButtonForm = styled.button`
   margin: 0 0 0 auto; 
   border-radius: 5px;
   background-color: orange;
-  `} 
+  `}
 `
