@@ -22,7 +22,8 @@ export const App = () => {
     handlerDeck,
     handlerShuffler,
     handlerPlayers,
-    handlerTurn,
+    handlerMove,
+    evalPairFliped,
     } = useAppContext()
 
   return (
@@ -48,7 +49,8 @@ export const App = () => {
 
     <Board
       cards={cards}
-
+      evalPairFliped={evalPairFliped}
+      
       render = { (card, index) => (
         <Card 
         key={index}
@@ -56,8 +58,7 @@ export const App = () => {
         value={card.value}
         fliped={card.fliped}
         matched={card.matched}
-        handlerTurn={handlerTurn}
-
+        handlerMove={handlerMove}
       />
     )}
     />

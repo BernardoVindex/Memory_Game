@@ -21,7 +21,6 @@ export const useAppContext = () => {
 
   const [openModal, setOpenModal] = useState(false)
 
-
   const handlerDeck = (value) => {
     const sortedDeck = [] 
     for (let i = value; i > 0; i--){
@@ -54,22 +53,33 @@ export const useAppContext = () => {
    setPlayers(party)
   }
 
-  const handlerTurn = (cardID) => {
+
+
+  const handlerMove = (cardID, fliped) => {
+    (cards[cardID].fliped === true)
+     ? flipCard(cardID, !fliped)
+     : flipCard(cardID, !fliped)  
+  }
+
+  const evalPairFliped = (arrayFiltered) => {
+
+    (arrayFiltered[0].value === arrayFiltered[1].value) 
+      ? console.log('Son iguales')
+      : console.log('No son iguales')
+  }
+
+  const flipCard = (cardID, value) => {
+   
     let copyState = [...cards]  
-    console.log({copyState})
 
     let targetState = {...copyState[cardID]}
-    console.log({targetState})
 
-    targetState.fliped = true
-    console.log(targetState.fliped)
+    targetState.fliped = value
 
     copyState[cardID] = targetState
-    console.log(copyState[cardID])
 
     setCards( copyState )
   }
-
   // console.log(cards)
 
   // const hanlderConfig = () => {
@@ -90,6 +100,7 @@ export const useAppContext = () => {
     handlerDeck,
     handlerShuffler,
     handlerPlayers,
-    handlerTurn,
+    handlerMove,
+    evalPairFliped,
   }
 }

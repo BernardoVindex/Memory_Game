@@ -1,22 +1,16 @@
 import { GridSection } from "./styles"
 
-export const Board = (props) => {
-  const renderFunc = props.render
+export const Board = ({ cards, render, evalPairFliped }) => {
+  const renderFunc = render
+  
+  const pairFliped = cards.filter( card => card.fliped === true )
 
-    return (
+  {(pairFliped.length > 1) && evalPairFliped(pairFliped)}
+
+  return (
     <>
       <GridSection>
-        
-        {/* {cards.map( (card, i) => {
-           card.id = i + 1
-          return (
-          <Card 
-            key={card.id}
-            value={card.value}
-          />
-          )
-        })} */}
-        {props.cards.map(renderFunc)}
+         {cards.map(renderFunc)}
       </GridSection>
     
     </>
