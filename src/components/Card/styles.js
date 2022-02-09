@@ -12,4 +12,8 @@ export const Figure = styled.li`
   ${props => props.fliped && css`
   background-color: orange;
   `}
+
+  ${props => props.matched && css`
+  background-color: orange;
+  `}
 `

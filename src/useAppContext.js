@@ -15,8 +15,6 @@ export const useAppContext = () => {
     {value:5, fliped: false, matched:false},
   ]) 
 
-  console.log(cards)
-
   const [players, setPlayers] = useState([
     {playerNum: 1, moves: 0, pairs: 0, time: 0, onMach: true }
   ])
@@ -57,10 +55,22 @@ export const useAppContext = () => {
   }
 
   const handlerTurn = (cardID) => {
-    console.log(cardID)
-    cards[cardID].fliped = true
-    console.log(cards)
+    let copyState = [...cards]  
+    console.log({copyState})
+
+    let targetState = {...copyState[cardID]}
+    console.log({targetState})
+
+    targetState.fliped = true
+    console.log(targetState.fliped)
+
+    copyState[cardID] = targetState
+    console.log(copyState[cardID])
+
+    setCards( copyState )
   }
+
+  // console.log(cards)
 
   // const hanlderConfig = () => {
   //   setFunction( prevState => ({

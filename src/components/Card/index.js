@@ -2,7 +2,7 @@ import { Figure } from './styles'
 
 export const Card = (props) => {
   
-  console.log({props})
+  //console.log({props})
 
   const hanlderFlip = () => {
     props.handlerTurn(props.cardID)
