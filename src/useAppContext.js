@@ -26,17 +26,19 @@ export const useAppContext = () => {
     for (let i = value; i > 0; i--){
         sortedDeck.push({value:i, fliped: false, matched:false})
     }
-    
-    const fullDeck = [...sortedDeck,...sortedDeck]
 
-    handlerShuffler(fullDeck)
-  }
+    sortedDeck.forEach( (card, i) => 
+      sortedDeck.unshift({value:i+1, fliped: false, matched:false})
+    )
+
+    handlerShuffler(sortedDeck)
+  } 
 
   const handlerShuffler = (deck) => {
     deck.sort(() => Math.random() - 0.5)
     
-    setCards(deck)
     setOpenModal(false)
+    setCards(deck)
   }
 
   const handlerPlayers = (value) => {
@@ -47,47 +49,45 @@ export const useAppContext = () => {
           moves: 0,
           pairs: 0,
           time: 0,
-          onMarch: true
+          onMatch: true
         })
     }
    setPlayers(party)
   }
 
 
-
-  const handlerMove = (cardID, fliped) => {
-    (cards[cardID].fliped === true)
-     ? flipCard(cardID, !fliped)
-     : flipCard(cardID, !fliped)  
-  }
-
-  const evalPairFliped = (arrayFiltered) => {
-
-    (arrayFiltered[0].value === arrayFiltered[1].value) 
-      ? console.log('Son iguales')
-      : console.log('No son iguales')
-  }
-
   const flipCard = (cardID, value) => {
-   
-    let copyState = [...cards]  
+    const copyState = [...cards]
+    copyState[cardID].fliped = !value
 
-    let targetState = {...copyState[cardID]}
+    const pairFliped = copyState.filter( card => 
+      card.fliped === true && card.matched === false 
+    )
+  
+    if (pairFliped.length > 1) evalPairFliped(pairFliped, copyState)
 
-    targetState.fliped = value
-
-    copyState[cardID] = targetState
-
-    setCards( copyState )
+    setCards(copyState)
   }
-  // console.log(cards)
 
-  // const hanlderConfig = () => {
-  //   setFunction( prevState => ({
-  //     ...prevState,
-  //     [typeState] : value
-  //   }))
-  // }
+
+  const evalPairFliped = (pairFliped, copyState) => {
+    if (pairFliped[0].value === pairFliped[1].value) {      
+      copyState.forEach( card => {
+        if (card.fliped) 
+          card.matched = true
+          card.fliped = false
+      })
+    } else {
+      copyState.forEach( card => {
+        if (card.fliped) 
+          card.fliped = false
+      })
+    }
+
+    setCards(copyState)
+  }
+  
+  console.log(cards)
 
   return {
     cards,
@@ -100,7 +100,7 @@ export const useAppContext = () => {
     handlerDeck,
     handlerShuffler,
     handlerPlayers,
-    handlerMove,
+    flipCard,
     evalPairFliped,
   }
 }

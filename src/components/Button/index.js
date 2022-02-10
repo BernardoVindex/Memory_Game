@@ -1,17 +1,17 @@
 import { ButtonForm } from "./styles"
 
-export const Button = (props) => {
+export const Button = ({ value, className, setFunction }) => {
 
   const handlerEvent = () => {
-    props.setFunction(props.value)
+    setFunction(value)
   }
   
   return (
     <ButtonForm
-      className={props.className}      
+      className={className}      
       onClick={handlerEvent}
     >
-      {props.className}
+      {className}
     </ButtonForm>
   )
-} 
+}   

@@ -9,6 +9,22 @@ import { FooterApp } from './components/Footer'
 import { PlayerCards } from './components/PlayerCard'
 import { Card } from './components/Card'
 
+/** To program:
+ * - Turn´s logic
+ * - Card´s Animation
+ * - Conexión to API Instagram
+ * - Glow on clicked buttons
+ * - App´s Logo 
+ * - LocalStorage saving
+ * - Media Queries to Tablet/desktop
+ * - Style variables and styleMod
+ * - Win screan
+ * 
+ ** Issues
+ * - Disabled onClick
+ */
+
+
 export const App = () => {
 
   const {
@@ -22,7 +38,7 @@ export const App = () => {
     handlerDeck,
     handlerShuffler,
     handlerPlayers,
-    handlerMove,
+    flipCard,
     evalPairFliped,
     } = useAppContext()
 
@@ -58,7 +74,7 @@ export const App = () => {
         value={card.value}
         fliped={card.fliped}
         matched={card.matched}
-        handlerMove={handlerMove}
+        flipCard={flipCard}
       />
     )}
     />

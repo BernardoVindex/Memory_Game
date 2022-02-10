@@ -1,21 +1,21 @@
 import { Figure } from './styles'
 
-export const Card = (props) => {
-
-  //console.log({props})
+export const Card = ({ cardID, value, fliped, matched, flipCard }) => {
 
   const hanlderFlip = () => {
-    props.handlerMove(props.cardID, props.fliped)
+    flipCard(cardID, fliped)
  }
-    
+
   return (
     <>
       <Figure     
-        className={props.value}
+        className={value}
         onClick={hanlderFlip} 
-        fliped={props.fliped}
+        fliped={fliped}
+        matched={matched}
+        disabled={matched}
       >
-        {props.value}
+        {value}
       </Figure>
     </>
   ) 

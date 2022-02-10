@@ -3,13 +3,10 @@ import { SettingsSection, Tittle } from "./styles"
 
 export const Settings = ({
   cards,
-  openModal,
   players,
   setCards,
-  setPlayers,
   setOpenModal,
   handlerDeck,
-  handlerShuffler,
   handlerPlayers,
 }) => {
      

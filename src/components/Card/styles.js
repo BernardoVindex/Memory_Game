@@ -8,12 +8,16 @@ export const Figure = styled.li`
   background-color: #162938;
   font-size: 2.25rem;
   list-style: none;
+  &[disabled] {
+  /* background-color: grey; */
+  opacity: 0.3;
+}
 
   ${props => props.fliped && css`
   background-color: orange;
   `}
-
+/* 
   ${props => props.matched && css`
-  background-color: orange;
-  `}
+  background-color: rorangeed;
+  `} */
 `
