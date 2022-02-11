@@ -7,4 +7,5 @@ export const Footer = styled.ul`
   background: grey;
   align-items: center;
   justify-content: space-evenly;
+  padding: 0;
 `

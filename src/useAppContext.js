@@ -16,10 +16,11 @@ export const useAppContext = () => {
   ]) 
 
   const [players, setPlayers] = useState([
-    {playerNum: 1, moves: 0, pairs: 0, time: 0, onMach: true }
+    {playerNum: 1, moves: 0, pairs: 1, time: 0, onMach: true }
   ])
 
   const [openModal, setOpenModal] = useState(false)
+
 
   const handlerDeck = (value) => {
     const sortedDeck = [] 
@@ -31,26 +32,16 @@ export const useAppContext = () => {
       sortedDeck.unshift({value:i+1, fliped: false, matched:false})
     )
 
-    handlerShuffler(sortedDeck)
+    sortedDeck.sort(() => Math.random() - 0.5)
+    setOpenModal(false)
+    setCards(sortedDeck)  
   } 
 
-  const handlerShuffler = (deck) => {
-    deck.sort(() => Math.random() - 0.5)
-    
-    setOpenModal(false)
-    setCards(deck)
-  }
 
   const handlerPlayers = (value) => {
     const party = [] 
     for (let i = 1 ; i <= value; i++){
-        party.push({
-          playerNum: i,
-          moves: 0,
-          pairs: 0,
-          time: 0,
-          onMatch: true
-        })
+        party.push({ playerNum: i, moves: 0, pairs: 0, time: 0, onMatch: true })
     }
    setPlayers(party)
   }
@@ -87,7 +78,7 @@ export const useAppContext = () => {
     setCards(copyState)
   }
   
-  console.log(cards)
+  console.log(players)
 
   return {
     cards,
@@ -98,7 +89,6 @@ export const useAppContext = () => {
     setOpenModal,
     
     handlerDeck,
-    handlerShuffler,
     handlerPlayers,
     flipCard,
     evalPairFliped,

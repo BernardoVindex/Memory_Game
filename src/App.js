@@ -25,6 +25,8 @@ import { Card } from './components/Card'
  * 
  ** Issues
  * - 
+ ** Questions
+ * - Where shoud I write tun´s logic?
  */
 
 
@@ -39,7 +41,6 @@ export const App = () => {
     setOpenModal,
     
     handlerDeck,
-    handlerShuffler,
     handlerPlayers,
     flipCard,
     evalPairFliped,
@@ -97,7 +98,6 @@ export const App = () => {
           setOpenModal={setOpenModal}
           
           handlerDeck={handlerDeck}
-          handlerShuffler={handlerShuffler}
           handlerPlayers={handlerPlayers}
         />
       </ModalSection>
@@ -111,6 +111,7 @@ export const App = () => {
         <PlayerCards
           key={player.playerNum}
           player={player.playerNum}
+          pairs={player.pairs}
         />
       )} 
     />

@@ -1,28 +1,20 @@
 import { PlayerContainer } from "./styles"
 
-export const PlayerCards = (props) => {
+export const PlayerCards = ({ player, pairs }) => {
+  
   return (
     <PlayerContainer>
       <h3
         className='playerNumber'
       >
-        Player {props.player}
+        P{player}
       </h3>
       <p
         className='movesPerTurn'
       >
-        Moves: {props.moves}
-      </p>
-      <p
-        className='pairsObtained'
-      >
-        Pairs: {props.pairs}
-      </p>
-      <p
-        className='timeRecord'
-      >
-        Time: {props.time}
+        {pairs}
       </p>
     </PlayerContainer>
   )
 }
+
