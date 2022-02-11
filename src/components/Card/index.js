@@ -3,7 +3,7 @@ import { Figure } from './styles'
 export const Card = ({ cardID, value, fliped, matched, flipCard }) => {
 
   const hanlderFlip = () => {
-    flipCard(cardID, fliped)
+    if (!matched) flipCard(cardID, fliped)
  }
 
   return (

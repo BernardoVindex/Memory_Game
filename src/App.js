@@ -5,12 +5,15 @@ import { useAppContext } from './useAppContext'
 import { ModalSection } from './components/Modal/styles'
 import { Button } from './components/Button'
 import { HeaderApp } from './components/Header'
+import { Timer } from './components/Timer'
 import { FooterApp } from './components/Footer'
 import { PlayerCards } from './components/PlayerCard'
 import { Card } from './components/Card'
 
 /** To program:
  * - Turn´s logic
+ *  - - By time
+ *  - - By round
  * - Card´s Animation
  * - Conexión to API Instagram
  * - Glow on clicked buttons
@@ -21,7 +24,7 @@ import { Card } from './components/Card'
  * - Win screan
  * 
  ** Issues
- * - Disabled onClick
+ * - 
  */
 
 
@@ -49,6 +52,9 @@ export const App = () => {
       <div>
         Logo
       </div>
+      <Timer>
+
+      </Timer>
       <Button
         className='Restart'
         value={cards.length / 2}
