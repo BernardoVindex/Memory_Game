@@ -36,9 +36,11 @@ export const App = () => {
     cards,
     openModal,
     players,
+    startGame,
     setCards,
     setPlayers,
     setOpenModal,
+    setStartGame,
     
     handlerDeck,
     handlerPlayers,
@@ -50,12 +52,11 @@ export const App = () => {
   <>
     <GlobalStyles />
     <HeaderApp>
+      {(startGame) && (<Timer />)}
+      
       <div>
         Logo
       </div>
-      <Timer>
-
-      </Timer>
       <Button
         className='Restart'
         value={cards.length / 2}
