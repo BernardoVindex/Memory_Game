@@ -41,6 +41,7 @@ export const App = () => {
     setCards,
     setPlayers,
     setOpenModal,
+    setStartGame,
     
     handlerDeck,
     handlerPlayers,
@@ -54,6 +55,8 @@ export const App = () => {
   <>
     <GlobalStyles />
     <HeaderApp>
+      {(startGame) && (<Timer />)}
+      
       <div>
         Logo
       </div>
