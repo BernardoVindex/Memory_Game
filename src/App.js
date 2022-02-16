@@ -9,10 +9,11 @@ import { Timer } from './components/Timer'
 import { FooterApp } from './components/Footer'
 import { PlayerCards } from './components/PlayerCard'
 import { Card } from './components/Card'
+import { CardWithReducer } from './components/CardREDUCER'
 
 /** To program:
  * - Turn´s logic
- *  - - By time
+ *  - - By time *
  *  - - By round
  * - Card´s Animation
  * - Conexión to API Instagram
@@ -36,6 +37,7 @@ export const App = () => {
     cards,
     openModal,
     players,
+    startGame, 
     setCards,
     setPlayers,
     setOpenModal,
@@ -43,7 +45,9 @@ export const App = () => {
     handlerDeck,
     handlerPlayers,
     flipCard,
-    evalPairFliped,
+
+    state, 
+    dispatch,
     } = useAppContext()
 
   return (
@@ -53,9 +57,6 @@ export const App = () => {
       <div>
         Logo
       </div>
-      <Timer>
-
-      </Timer>
       <Button
         className='Restart'
         value={cards.length / 2}
@@ -70,9 +71,14 @@ export const App = () => {
       />
     </HeaderApp>
 
+    {(startGame) && (
+      <Timer 
+        seconds={59}
+      />
+    )}
+
     <Board
       cards={cards}
-      evalPairFliped={evalPairFliped}
       
       render = { (card, index) => (
         <Card 
@@ -85,6 +91,23 @@ export const App = () => {
       />
     )}
     />
+
+{/********** Con useReducer ***********/}
+    <Board
+      cards={state}
+      
+      render = { (state, index) => (
+        <CardWithReducer 
+        key={index}
+        cardID={index}
+        value={state.value}
+        fliped={state.fliped}
+        matched={state.matched}
+        dispatch={dispatch}
+      />
+    )}
+    />
+{/********** Con useReducer ***********/}
 
  
     {(openModal) && (

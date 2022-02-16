@@ -1,6 +1,25 @@
-import { useState } from "react"
+import { useState, useReducer } from 'react'
+
+const initialState = [
+  {value:1, fliped: false, matched:false},
+  {value:2, fliped: false, matched:false},
+  {value:3, fliped: false, matched:false},
+  {value:4, fliped: false, matched:false},
+  {value:5, fliped: false, matched:false},
+  {value:1, fliped: false, matched:false},
+  {value:2, fliped: false, matched:false},
+  {value:3, fliped: false, matched:false},
+  {value:4, fliped: false, matched:false},
+  {value:5, fliped: false, matched:false},
+];
+
+const reducer = (state, action) => {
+  
+}
 
 export const useAppContext = () => {
+
+  const [state, dispatch] =  useReducer(reducer, initialState)
  
   const [cards, setCards] = useState([
     {value:1, fliped: false, matched:false},
@@ -21,7 +40,8 @@ export const useAppContext = () => {
 
   const [openModal, setOpenModal] = useState(false)
 
-
+  const [startGame, setSartGame] = useState(false)
+  
   const handlerDeck = (value) => {
     const sortedDeck = [] 
     for (let i = value; i > 0; i--){
@@ -78,12 +98,15 @@ export const useAppContext = () => {
     setCards(copyState)
   }
   
-  console.log(players)
+  console.log(state)
+  console.log(initialState)
 
   return {
     cards,
     openModal,
     players,
+    startGame, 
+    setSartGame,
     setCards,
     setPlayers,
     setOpenModal,
@@ -91,6 +114,8 @@ export const useAppContext = () => {
     handlerDeck,
     handlerPlayers,
     flipCard,
-    evalPairFliped,
+
+    state, 
+    dispatch,
   }
 }
