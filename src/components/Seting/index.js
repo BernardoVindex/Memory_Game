@@ -9,7 +9,7 @@ export const Settings = ({
   handlerDeck,
   handlerPlayers,
 }) => {
-     
+    
   return (
     <>
       <SettingsSection>

@@ -1,14 +1,35 @@
 import { GridSection } from "./styles"
 
-export const Board = ({ cards, render, evalPairFliped }) => {
-  const renderFunc = render
-  
+export const Board = ({ cards, render }) => {
+ 
   return (
     <>
       <GridSection>
-         {cards.map(renderFunc)}
+         {cards.map(render)}
       </GridSection>
     
     </>
   )
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
