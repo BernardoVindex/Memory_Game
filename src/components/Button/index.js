@@ -13,7 +13,7 @@ export const Button = ({ value, className, setFunction }) => {
   return (
     <ButtonForm
       className={className}      
-      onClick={handlerEvent2}
+      onClick={handlerEvent}
     >
       {className}
     </ButtonForm>

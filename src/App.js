@@ -34,18 +34,15 @@ import { CardWithReducer } from './components/CardREDUCER'
 export const App = () => {
 
   const {
-    cards,
     openModal,
     players,
-    startGame, 
-    setCards,
+    startGame,
     setPlayers,
     setOpenModal,
-    setStartGame,
+    setSartGame,
     
     handlerDeck,
     handlerPlayers,
-    flipCard,
 
     state, 
     dispatch,
@@ -62,7 +59,7 @@ export const App = () => {
       </div>
       <Button
         className='Restart'
-        value={cards.length / 2}
+        value={state.length / 2}
         typeState='restart'
         setFunction={handlerDeck}
       />
@@ -80,27 +77,13 @@ export const App = () => {
       />
     )}
 
-    <Board
-      cards={cards}
-      
-      render = { (card, index) => (
-        <Card 
-        key={index}
-        cardID={index}
-        value={card.value}
-        fliped={card.fliped}
-        matched={card.matched}
-        flipCard={flipCard}
-      />
-    )}
-    />
 
 {/********** Con useReducer ***********/}
     <Board
       cards={state}
       
       render = { (state, index) => (
-        <CardWithReducer 
+        <Card
         key={index}
         cardID={index}
         value={state.value}
