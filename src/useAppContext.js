@@ -16,6 +16,19 @@ const initialState = [
 const reducer = (state, action) => {
   const newSate = [...state]
   switch (action.type) {
+    case 'newDeck':
+      newSate.length = 0
+      for (let i = action.payload; i > 0; i--) { 
+        newSate.push({value: i, fliped: false, matched:false})
+      }
+
+      newSate.forEach( (card, i) => 
+        newSate.unshift({value: i+1 , fliped: false, matched:false}) 
+      )
+
+      newSate.sort(() => Math.random() - 0.5)
+      
+    return newSate
     case 'flip':
       newSate[action.ID].fliped = !action.fliped
       return newSate
@@ -42,25 +55,14 @@ export const useAppContext = () => {
     {playerNum: 1, moves: 0, pairs: 1, time: 0, onMach: true }
   ])
 
-  const [openModal, setOpenModal] = useState(false)
+  const [openModal, setOpenModal] = useState(true)
 
-  const [startGame, setSartGame] = useState(false)
+  const [startGame, setStartGame] = useState(false)
   
   const handlerDeck = (value) => {
-    const sortedDeck = [] 
-    for (let i = value; i > 0; i--){
-        sortedDeck.push([value])
-    }
-
-    sortedDeck.forEach( (card, i) => 
-      sortedDeck.unshift([value])
-    )
-
-    sortedDeck.sort(() => Math.random() - 0.5)
-    setOpenModal(false)
-    setCards(sortedDeck)  
+    dispatch({ type: 'newDeck', payload: value})
+    //setOpenModal(false)
   } 
-
 
   const handlerPlayers = (value) => {
     const party = [] 
@@ -69,7 +71,6 @@ export const useAppContext = () => {
     }
    setPlayers(party)
   }
-
 
   const evalPairFliped = (pairFliped) => {
     (pairFliped[0].value === pairFliped[1].value)
@@ -91,7 +92,7 @@ export const useAppContext = () => {
     startGame,
     setPlayers,
     setOpenModal,
-    setSartGame,
+    setStartGame,
     
     handlerDeck,
     handlerPlayers,

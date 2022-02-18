@@ -39,11 +39,9 @@ export const App = () => {
     startGame,
     setPlayers,
     setOpenModal,
-    setSartGame,
-    
+    setStartGame,
     handlerDeck,
     handlerPlayers,
-
     state, 
     dispatch,
     } = useAppContext()
@@ -52,8 +50,6 @@ export const App = () => {
   <>
     <GlobalStyles />
     <HeaderApp>
-      {(startGame) && (<Timer />)}
-      
       <div>
         Logo
       </div>
@@ -71,14 +67,13 @@ export const App = () => {
       />
     </HeaderApp>
 
-    {(startGame) && (
+    {(!openModal) && (
       <Timer 
-        seconds={59}
-      />
-    )}
+        cards={state}
+        players={players}
+    />)}
+      
 
-
-{/********** Con useReducer ***********/}
     <Board
       cards={state}
       
@@ -93,18 +88,17 @@ export const App = () => {
       />
     )}
     />
-{/********** Con useReducer ***********/}
 
  
     {(openModal) && (
       <ModalSection>
         <Settings
-          cards={cards}
+          cards={state}
           openModal={openModal}
           players={players}
-          setCards={setCards}
           setPlayers={setPlayers}
           setOpenModal={setOpenModal}
+          setStartGame={setStartGame}
           
           handlerDeck={handlerDeck}
           handlerPlayers={handlerPlayers}
