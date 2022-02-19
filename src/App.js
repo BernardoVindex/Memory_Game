@@ -9,7 +9,6 @@ import { Timer } from './components/Timer'
 import { FooterApp } from './components/Footer'
 import { PlayerCards } from './components/PlayerCard'
 import { Card } from './components/Card'
-import { CardWithReducer } from './components/CardREDUCER'
 
 /** To program:
  * - Turn´s logic
@@ -34,11 +33,9 @@ import { CardWithReducer } from './components/CardREDUCER'
 export const App = () => {
 
   const {
-    openModal,
     players,
     startGame,
     setPlayers,
-    setOpenModal,
     setStartGame,
     handlerDeck,
     handlerPlayers,
@@ -61,13 +58,13 @@ export const App = () => {
       />
       <Button
         className='Settings'
-        value={true} 
+        value={false} 
         typeState='settingOn'
-        setFunction={setOpenModal}
+        setFunction={setStartGame}
       />
     </HeaderApp>
 
-    {(!openModal) && (
+    {(startGame) && (
       <Timer 
         cards={state}
         players={players}
@@ -90,14 +87,13 @@ export const App = () => {
     />
 
  
-    {(openModal) && (
+    {(!startGame) && (
       <ModalSection>
         <Settings
           cards={state}
-          openModal={openModal}
+          startGame={startGame}
           players={players}
           setPlayers={setPlayers}
-          setOpenModal={setOpenModal}
           setStartGame={setStartGame}
           
           handlerDeck={handlerDeck}

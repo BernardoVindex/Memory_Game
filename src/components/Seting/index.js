@@ -4,7 +4,6 @@ import { SettingsSection, Tittle } from "./styles"
 export const Settings = ({
   cards,
   players,
-  setOpenModal,
   setStartGame,
   handlerDeck,
   handlerPlayers,
@@ -76,9 +75,9 @@ export const Settings = ({
           />
           <Button 
             className='Start Game!'
-            value={false} 
+            value={true} 
             typeState='start'
-            setFunction={setOpenModal}        
+            setFunction={setStartGame}        
           />
         </SettingsSection>        
     </>

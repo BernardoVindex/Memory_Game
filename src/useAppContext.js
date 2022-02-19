@@ -55,8 +55,6 @@ export const useAppContext = () => {
     {playerNum: 1, moves: 0, pairs: 1, time: 0, onMach: true }
   ])
 
-  const [openModal, setOpenModal] = useState(true)
-
   const [startGame, setStartGame] = useState(false)
   
   const handlerDeck = (value) => {
@@ -83,15 +81,23 @@ export const useAppContext = () => {
       card.fliped === true && card.matched === false 
     )
     if (pairFliped.length > 1) evalPairFliped(pairFliped)
+
+    if (!state.some((card) => card.matched === false)) setPlayers()
   },[state])
+
+    
+  // ? console.log('faltan cartas por emparejar')
+  // : console.log('ya')
+
+  // clearInterval(intervalId);
+
+  
 
 
   return {
-    openModal,
     players,
     startGame,
     setPlayers,
-    setOpenModal,
     setStartGame,
     
     handlerDeck,
