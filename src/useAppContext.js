@@ -105,12 +105,7 @@ export const useAppContext = () => {
     cards,
     openModal,
     players,
-<<<<<<< HEAD
-    startGame, 
-    setSartGame,
-=======
     startGame,
->>>>>>> b511fbebddc19e172504d5c2eb4a8814b9a74908
     setCards,
     setPlayers,
     setOpenModal,
