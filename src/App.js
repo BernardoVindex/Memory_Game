@@ -68,6 +68,8 @@ export const App = () => {
       <Timer 
         cards={state}
         players={players}
+        setStartGame={setStartGame}
+        
     />)}
       
 
@@ -110,7 +112,8 @@ export const App = () => {
         <PlayerCards
           key={player.playerNum}
           player={player.playerNum}
-          pairs={player.pairs}
+          pairs={player.pairs}  
+          status={player.status}
         />
       )} 
     />

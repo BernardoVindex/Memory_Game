@@ -52,7 +52,7 @@ export const useAppContext = () => {
   const [state, dispatch] =  useReducer(reducer, initialState)
  
   const [players, setPlayers] = useState([
-    {playerNum: 1, moves: 0, pairs: 1, time: 0, onMach: true }
+    {playerNum: 1, moves: 0, pairs: 1, time: 0, status: 'await' }
   ])
 
   const [startGame, setStartGame] = useState(false)
@@ -65,7 +65,7 @@ export const useAppContext = () => {
   const handlerPlayers = (value) => {
     const party = [] 
     for (let i = 1 ; i <= value; i++){
-        party.push({ playerNum: i, moves: 0, pairs: 0, time: 0, onMatch: true })
+        party.push({ playerNum: i, moves: 0, pairs: 0, time: 0, status: 'await' })
     }
    setPlayers(party)
   }
@@ -82,17 +82,57 @@ export const useAppContext = () => {
     )
     if (pairFliped.length > 1) evalPairFliped(pairFliped)
 
-    if (!state.some((card) => card.matched === false)) setPlayers()
+    if (!state.some((card) => card.matched === false)) gameTurn()
+    
   },[state])
 
+  const gameTurn = () => {
+    //  if (gameMode === 'speedRun')
+    //  Set (time and moves and onMatch = false on current player)
+    const playerScore = [...players]
+    const playerIndex = players.findIndex( player => player.status === 'await')
+    playerScore[playerIndex].status = 'finished'
+         
+    //  if there is no more players, 
+    if (playerIndex === -1) {
+      console.log('Render WinScrean')
+      setPlayers(playerScore)  
+    }
+    else {
+      dispatch({ type: 'newDeck', payload: state.length / 2})
+      console.log('siguiente jugador')
+      setPlayers(playerScore)  
+    }
+        //  set winScrean = true
     
-  // ? console.log('faltan cartas por emparejar')
-  // : console.log('ya')
+    //  if there are more players, (find onMatch = ture)
+        //  set newDeck 
 
-  // clearInterval(intervalId);
+    // players reducer
+    // 1: fist player status
+    //    status: 'playing'
+    //  
+    // 2: curretn player stats: 
+    //  {
+    //    playerNum: current player,
+    //    moves: currentMoves,
+    //    pairs: currentPair,
+    //    time: currentTIME,
+    //    status: 'finish'
+    //  }
+    // 3: 
 
-  
 
+    // contst gameState = 
+    {
+      typeOfCards = ('num' || 'img'),
+      pairs = (Number),
+      players = (Number),
+      gameStatus = ('Start'|| 'EndOfRund' ||'Configuring'||'Finish')
+
+    }
+
+    }
 
   return {
     players,
