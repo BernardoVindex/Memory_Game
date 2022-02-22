@@ -1,8 +1,8 @@
 import { TimeArea } from "./styles"
 import { useState, useEffect } from "react";
 
-export const Timer = ({ cards, player, setStartGame }) => {
-  const [timeLeft, setTimeLeft] = useState(0);
+export const Timer = ({ cards, timeLeft, setTimeLeft }) => {
+  
   
   useEffect(()=> {
     let intervalId = null

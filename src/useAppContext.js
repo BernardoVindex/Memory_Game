@@ -56,6 +56,10 @@ export const useAppContext = () => {
   ])
 
   const [startGame, setStartGame] = useState(false)
+
+  const [timeLeft, setTimeLeft] = useState(0)
+
+  const [openModal, setOpenModal] = useState(true)
   
   const handlerDeck = (value) => {
     dispatch({ type: 'newDeck', payload: value})
@@ -82,61 +86,53 @@ export const useAppContext = () => {
     )
     if (pairFliped.length > 1) evalPairFliped(pairFliped)
 
-    if (!state.some((card) => card.matched === false)) gameTurn()
+    if (!state.some((card) => card.matched === false)) endOfTurn()
     
   },[state])
 
-  const gameTurn = () => {
-    //  if (gameMode === 'speedRun')
-    //  Set (time and moves and onMatch = false on current player)
+  useEffect(() => {
+    setOpenModal(false)
+  }, startGame)
+
+  const endOfTurn = () => {
+ 
     const playerScore = [...players]
-    const playerIndex = players.findIndex( player => player.status === 'await')
-    playerScore[playerIndex].status = 'finished'
-         
-    //  if there is no more players, 
-    if (playerIndex === -1) {
-      console.log('Render WinScrean')
-      setPlayers(playerScore)  
-    }
-    else {
-      dispatch({ type: 'newDeck', payload: state.length / 2})
-      console.log('siguiente jugador')
-      setPlayers(playerScore)  
-    }
-        //  set winScrean = true
+    const playerIndex = players.findIndex( player => player.status === 'onMatch')
+    playerScore[playerIndex] =     {
+        moves: currentMoves,
+        pairs: currentPair,
+        time: currentTIME,
+        status: 'finish'
+      }
     
-    //  if there are more players, (find onMatch = ture)
-        //  set newDeck 
-
-    // players reducer
-    // 1: fist player status
-    //    status: 'playing'
-    //  
-    // 2: curretn player stats: 
-    //  {
-    //    playerNum: current player,
-    //    moves: currentMoves,
-    //    pairs: currentPair,
-    //    time: currentTIME,
-    //    status: 'finish'
-    //  }
-    // 3: 
+    setPlayers(playerScore)  
 
 
-    // contst gameState = 
-    {
-      typeOfCards = ('num' || 'img'),
-      pairs = (Number),
-      players = (Number),
-      gameStatus = ('Start'|| 'EndOfRund' ||'Configuring'||'Finish')
 
+    if (playerIndex !== -1) {
+      // Find a new player watting
+      const playerIndex = players.findIndex( player => player.status === 'await')
+      // Put him on Match
+      playerScore[playerIndex].status = 'onMatch' 
+      // Reestart game on true to set Timer on ture again
+      setStartGame(true)
+      // 'shuffle deck'
+      dispatch({ type: 'newDeck', payload: state.length / 2})
+    } else {
+      
+      setWinScrean(true)
     }
 
-    }
+
+  }
 
   return {
     players,
     startGame,
+    timeLeft,
+    openModal, 
+    setOpenModal,
+    setTimeLeft,
     setPlayers,
     setStartGame,
     
@@ -147,3 +143,14 @@ export const useAppContext = () => {
     dispatch,
   }
 }
+
+/**
+ * Start game
+ * transiton : Reade 3,2,1 {Transition component}
+ * Set player.status = 'onMatch' in {Timer component}
+ * Start timer {Timer component}
+ * At set all card´s as matched {App Context component}
+ * Set player.status = 'finished' {App Context component}
+ * Look for more player.status = 'await' {App Context component}
+ * Repeat trnsition or set winScrean
+ */

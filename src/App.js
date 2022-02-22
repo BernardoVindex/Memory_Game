@@ -35,6 +35,10 @@ export const App = () => {
   const {
     players,
     startGame,
+    timeLeft,
+    openModal, 
+    setOpenModal,
+    setTimeLeft,
     setPlayers,
     setStartGame,
     handlerDeck,
@@ -69,6 +73,8 @@ export const App = () => {
         cards={state}
         players={players}
         setStartGame={setStartGame}
+        timeLeft={timeLeft}
+        setTimeLeft={setTimeLeft}
         
     />)}
       
@@ -89,7 +95,7 @@ export const App = () => {
     />
 
  
-    {(!startGame) && (
+    {(openModal) && (
       <ModalSection>
         <Settings
           cards={state}
