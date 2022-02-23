@@ -2,11 +2,13 @@ import { Figure } from './styles'
 
 export const CardWithReducer = ({ cardID, value, fliped, matched, dispatch }) => {
 
-  const hanlderFlip = () => {
+  const hanlderFlip = () => {  
     dispatch({
-      
+      type: 'flip',
+      ID: cardID,
+      fliped: fliped
     })
- }
+  }
 
   return (
     <>

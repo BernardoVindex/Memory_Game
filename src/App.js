@@ -34,19 +34,14 @@ import { CardWithReducer } from './components/CardREDUCER'
 export const App = () => {
 
   const {
-    cards,
     openModal,
     players,
-    startGame, 
-    setCards,
+    startGame,
     setPlayers,
     setOpenModal,
     setStartGame,
-    
     handlerDeck,
     handlerPlayers,
-    flipCard,
-
     state, 
     dispatch,
     } = useAppContext()
@@ -55,14 +50,12 @@ export const App = () => {
   <>
     <GlobalStyles />
     <HeaderApp>
-      {(startGame) && (<Timer />)}
-      
       <div>
         Logo
       </div>
       <Button
         className='Restart'
-        value={cards.length / 2}
+        value={state.length / 2}
         typeState='restart'
         setFunction={handlerDeck}
       />
@@ -74,33 +67,18 @@ export const App = () => {
       />
     </HeaderApp>
 
-    {(startGame) && (
+    {(!openModal) && (
       <Timer 
-        seconds={59}
-      />
-    )}
-
-    <Board
-      cards={cards}
+        cards={state}
+        players={players}
+    />)}
       
-      render = { (card, index) => (
-        <Card 
-        key={index}
-        cardID={index}
-        value={card.value}
-        fliped={card.fliped}
-        matched={card.matched}
-        flipCard={flipCard}
-      />
-    )}
-    />
 
-{/********** Con useReducer ***********/}
     <Board
       cards={state}
       
       render = { (state, index) => (
-        <CardWithReducer 
+        <Card
         key={index}
         cardID={index}
         value={state.value}
@@ -110,18 +88,17 @@ export const App = () => {
       />
     )}
     />
-{/********** Con useReducer ***********/}
 
  
     {(openModal) && (
       <ModalSection>
         <Settings
-          cards={cards}
+          cards={state}
           openModal={openModal}
           players={players}
-          setCards={setCards}
           setPlayers={setPlayers}
           setOpenModal={setOpenModal}
+          setStartGame={setStartGame}
           
           handlerDeck={handlerDeck}
           handlerPlayers={handlerPlayers}
