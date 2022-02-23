@@ -19,6 +19,10 @@ const initialGameState = {
   gameBoard: false
 }
 
+const initialPlayerState = [
+  {playerNum: 1, moves: 0, pairs: 1, time: 0, status: 'await' }
+]
+
 
 const reducer = (state, action) => {
   const newDeck = [...state]
@@ -54,29 +58,48 @@ const reducer = (state, action) => {
   }
 }
 
+const playerReducer = (state, action) => {
+  //const playerId = state.findIndex( player => player.status === action.playerStatus)
+  const newParty = [...state]
+  switch (action.type) {
+    case 'makeParty':
+      newParty.length = 0
+      for (let i = 1 ; i <= action.payload; i++){
+          newParty.push({ playerNum: i, moves: 0, pairs: 0, time: 0, status: 'await' })
+      }
+      return newParty
+    case 'move':
+      console.log('DESDE move')
+      return state
+      
+  }
+}
+
 const gameReducer = (state, action) => {
   switch (action.type) {
     case 'configuring': 
       return  {
-        ...gameState,
+        ...state,
         setteings: true,
         playing: false,
         gameBoard: false
       }
     case 'playing': 
       return  {
-        ...gameState,
+        ...state,
         setteings: false,
         playing: true,
         gameBoard: false
       }
     case 'endGame': 
       return  {
-        ...gameState,
+        ...state,
         setteings: false,
         playing: false,
         gameBoard: true
       }
+    default:
+      throw new Error(`type action desconocido: ${action.type}`)
   }
 }
 
@@ -86,27 +109,10 @@ export const useAppContext = () => {
 
   const [gameState, gameDispatch] = useReducer(gameReducer, initialGameState)
 
-  const [plyer, PlayersDispatch] = useReducer(gameReducer, initialGameState)
+  const [players, playersDispatch] = useReducer(playerReducer, initialPlayerState)
  
-  const [players, setPlayers] = useState([
-    {playerNum: 1, moves: 0, pairs: 1, time: 0, status: 'await' }
-  ])
-
-
   const [timeLeft, setTimeLeft] = useState(0)
-  
-  const handlerDeck = (value) => {
-    deckDispatch({ type: 'newDeck', payload: value})
-    //setOpenModal(false)
-  } 
 
-  const handlerPlayers = (value) => {
-    const party = [] 
-    for (let i = 1 ; i <= value; i++){
-        party.push({ playerNum: i, moves: 0, pairs: 0, time: 0, status: 'await' })
-    }
-   setPlayers(party)
-  }
 
   const evalPairFliped = (pairFliped) => {
     (pairFliped[0].value === pairFliped[1].value)
@@ -115,6 +121,7 @@ export const useAppContext = () => {
   }
 
   useEffect(() => {
+    playersDispatch({ type: 'move'})
     const pairFliped = deck.filter( card => 
       card.fliped === true && card.matched === false 
     )
@@ -139,34 +146,13 @@ export const useAppContext = () => {
     setPlayers(playerScore)  
   }
 
-
-  //   if (playerIndex !== -1) {
-  //     // Find a new player watting
-  //     const playerIndex = players.findIndex( player => player.status === 'await')
-  //     // Put him on Match
-  //     playerScore[playerIndex].status = 'onMatch' 
-  //     // Reestart game on true to set Timer on ture again
-
-  //     // 'shuffle deck'
-  //     dispatch({ type: 'newDeck', payload: state.length / 2})
-  //   } else {
-      
-  //     setWinScrean(true)
-  //   }
-  // }
-
-  console.log(gameState)
-
   return {
-    players,
-    setPlayers,
+    players, 
+    playersDispatch,
 
     timeLeft,
     setTimeLeft, 
     
-    handlerDeck,
-    handlerPlayers,
-
     deck, 
     deckDispatch,
 

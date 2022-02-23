@@ -14,6 +14,7 @@ import { Card } from './components/Card'
  * - Turn´s logic
  *  - - By time *
  *  - - By round
+ * - Reset Time at changes 
  * - Card´s Animation
  * - Conexión to API Instagram
  * - Glow on clicked buttons
@@ -33,24 +34,18 @@ import { Card } from './components/Card'
 export const App = () => {
 
   const {
-    players,
-    setPlayers,
-
-    startGame,
-    setStartGame,
+    players, 
+    playersDispatch,
 
     timeLeft,
     setTimeLeft, 
     
-    handlerDeck,
-    handlerPlayers,
-
     deck, 
-    deckDispatchs,
+    deckDispatch,
 
     gameState, 
     gameDispatch,
-    } = useAppContext()
+  } = useAppContext()
 
   return (
   <>
@@ -62,14 +57,14 @@ export const App = () => {
       <Button
         className='Restart'
         value={deck.length / 2}
-        typeState='restart'
-        setFunction={handlerDeck}
+        type='newDeck'
+        dispatch={deckDispatch}
       />
       <Button
         className='Settings'
         value={false} 
-        typeState='settingOn'
-        setFunction={setStartGame}
+        type='configuring'
+        dispatch={gameDispatch}
       />
     </HeaderApp>
 
@@ -77,7 +72,6 @@ export const App = () => {
       <Timer 
         cards={deck}
         players={players}
-        setStartGame={setStartGame}
         timeLeft={timeLeft}
         setTimeLeft={setTimeLeft}
         
@@ -93,7 +87,7 @@ export const App = () => {
         value={card.value}
         fliped={card.fliped}
         matched={card.matched}
-        deckDispatch={deckDispatch}
+        dispatch={deckDispatch}
       />
     )}
     />
@@ -104,18 +98,17 @@ export const App = () => {
         <Settings
           cards={deck}
           players={players}
-          setPlayers={setPlayers}
 
-          
-          handlerDeck={handlerDeck}
-          handlerPlayers={handlerPlayers}
+
+          deckDispatch={deckDispatch}
+          gameDispatch={gameDispatch}
+          playersDispatch={playersDispatch}
         />
       </ModalSection>
     )}
 
     <FooterApp
       players={players}
-      setPlayers={setPlayers}
 
       render = { player => (
         <PlayerCards

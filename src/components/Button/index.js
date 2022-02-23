@@ -1,9 +1,9 @@
 import { ButtonForm } from "./styles"
 
-export const Button = ({ value, className, setFunction }) => {
+export const Button = ({ value, className, type, dispatch }) => {
 
   const handlerEvent = () => {
-    setFunction(value)
+    dispatch({type: type, payload: value})
   }
   
   return (

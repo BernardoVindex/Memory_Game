@@ -4,20 +4,20 @@ import { useState, useEffect } from "react";
 export const Timer = ({ cards, timeLeft, setTimeLeft }) => {
   
   
-  useEffect(()=> {
-    let intervalId = null
+  // useEffect(()=> {
+  //   let intervalId = null
     
-    if (cards.some((card) => card.matched === false)) {
-      intervalId = setInterval(() => {
-        setTimeLeft((sec) => sec + 1)
-      },100)
-    } else {
-      clearInterval(intervalId)
-      //setStartGame(false)
-    }
+  //   if (cards.some((card) => card.matched === false)) {
+  //     intervalId = setInterval(() => {
+  //       setTimeLeft((sec) => sec + 1)
+  //     },100)
+  //   } else {
+  //     clearInterval(intervalId)
+  //     //setStartGame(false)
+  //   }
 
-    return () => {clearInterval(intervalId)}
-  },[cards])
+  //   return () => {clearInterval(intervalId)}
+  // },[cards])
 
 
   return (
