@@ -1,7 +1,6 @@
 import { PlayerContainer } from "./styles"
 
-export const PlayerCards = ({ player, pairs }) => {
-  
+export const PlayerCards = ({ player, pairs, status }) => {
   return (
     <PlayerContainer>
       <h3
@@ -13,6 +12,9 @@ export const PlayerCards = ({ player, pairs }) => {
         className='movesPerTurn'
       >
         {pairs}
+      </p>
+      <p>
+        {status}
       </p>
     </PlayerContainer>
   )

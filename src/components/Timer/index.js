@@ -1,24 +1,24 @@
 import { TimeArea } from "./styles"
 import { useState, useEffect } from "react";
 
-export const Timer = ({ cards, player }) => {
-  const [timeLeft, setTimeLeft] = useState(0);
+export const Timer = ({ cards, timeLeft, setTimeLeft }) => {
   
-  const intervalId = setInterval(() => {
-    setTimeLeft((t) => t + 1)
-  }, 1000);
-
-  useEffect(() => {
-    //console.log(timeLeft)
+  
+  useEffect(()=> {
+    let intervalId = null
     
-    (cards.some((card) => card.matched == false))
-      ? console.log('faltan cartas por emparejar')
-      : clearInterval(intervalId)//console.log('se han emparejado todas las cartas')
+    if (cards.some((card) => card.matched === false)) {
+      intervalId = setInterval(() => {
+        setTimeLeft((sec) => sec + 1)
+      },100)
+    } else {
+      clearInterval(intervalId)
+      //setStartGame(false)
+    }
 
-    return () => clearInterval(intervalId);
-  }, [cards]);
-  
-  
+    return () => {clearInterval(intervalId)}
+  },[cards])
+
 
   return (
     <TimeArea>

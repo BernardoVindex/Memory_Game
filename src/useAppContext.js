@@ -13,95 +13,173 @@ const initialState = [
   {value:5, fliped: false, matched:false},
 ]
 
+const initialGameState = {
+  setteings: true,
+  playing: false,
+  gameBoard: false
+}
+
+
 const reducer = (state, action) => {
-  const newSate = [...state]
+  const newDeck = [...state]
   switch (action.type) {
     case 'newDeck':
-      newSate.length = 0
+      newDeck.length = 0
       for (let i = action.payload; i > 0; i--) { 
-        newSate.push({value: i, fliped: false, matched:false})
+        newDeck.push({value: i, fliped: false, matched:false})
       }
 
-      newSate.forEach( (card, i) => 
-        newSate.unshift({value: i+1 , fliped: false, matched:false}) 
+      newDeck.forEach( (card, i) => 
+        newDeck.unshift({value: i+1 , fliped: false, matched:false}) 
       )
 
-      newSate.sort(() => Math.random() - 0.5)
+      newDeck.sort(() => Math.random() - 0.5)
       
-    return newSate
+    return newDeck
     case 'flip':
-      newSate[action.ID].fliped = !action.fliped
-      return newSate
+      newDeck[action.ID].fliped = !action.fliped
+      return newDeck
     case 'match':
-      newSate.map( card => {
+      newDeck.map( card => {
         if (card.fliped) card.matched = true
       })
-      return newSate
+      return newDeck
     case 'unmatch':
-      newSate.map( card => {
+      newDeck.map( card => {
         if (card.fliped) card.fliped = false
       })
-      return newSate
+      return newDeck
     default:
       throw new Error(`type action desconocido: ${action.type}`)
   }
 }
 
+const gameReducer = (state, action) => {
+  switch (action.type) {
+    case 'configuring': 
+      return  {
+        ...gameState,
+        setteings: true,
+        playing: false,
+        gameBoard: false
+      }
+    case 'playing': 
+      return  {
+        ...gameState,
+        setteings: false,
+        playing: true,
+        gameBoard: false
+      }
+    case 'endGame': 
+      return  {
+        ...gameState,
+        setteings: false,
+        playing: false,
+        gameBoard: true
+      }
+  }
+}
+
 export const useAppContext = () => {
 
-  const [state, dispatch] =  useReducer(reducer, initialState)
+  const [deck, deckDispatch] =  useReducer(reducer, initialState)
+
+  const [gameState, gameDispatch] = useReducer(gameReducer, initialGameState)
+
+  const [plyer, PlayersDispatch] = useReducer(gameReducer, initialGameState)
  
   const [players, setPlayers] = useState([
-    {playerNum: 1, moves: 0, pairs: 1, time: 0, onMach: true }
+    {playerNum: 1, moves: 0, pairs: 1, time: 0, status: 'await' }
   ])
 
-  const [openModal, setOpenModal] = useState(true)
 
-  const [startGame, setStartGame] = useState(false)
+  const [timeLeft, setTimeLeft] = useState(0)
   
   const handlerDeck = (value) => {
-    dispatch({ type: 'newDeck', payload: value})
+    deckDispatch({ type: 'newDeck', payload: value})
     //setOpenModal(false)
   } 
 
   const handlerPlayers = (value) => {
     const party = [] 
     for (let i = 1 ; i <= value; i++){
-        party.push({ playerNum: i, moves: 0, pairs: 0, time: 0, onMatch: true })
+        party.push({ playerNum: i, moves: 0, pairs: 0, time: 0, status: 'await' })
     }
    setPlayers(party)
   }
 
   const evalPairFliped = (pairFliped) => {
     (pairFliped[0].value === pairFliped[1].value)
-      ? dispatch({ type: 'match'})
-      : dispatch({ type: 'unmatch'})
+      ? deckDispatch({ type: 'match'})
+      : deckDispatch({ type: 'unmatch'})
   }
 
   useEffect(() => {
-    const pairFliped = state.filter( card => 
+    const pairFliped = deck.filter( card => 
       card.fliped === true && card.matched === false 
     )
     if (pairFliped.length > 1) evalPairFliped(pairFliped)
-  },[state])
-  
-  
- const flipCard = (cardID, value) => {
-   const copyState = [...cards]
-   copyState[cardID].fliped = !value
 
-   const pairFliped = copyState.filter( card => 
-     card.fliped === true && card.matched === false 
-   )
+    if (!deck.some((card) => card.matched === false)) endOfTurn()
+    
+  },[deck])
   
-   if (pairFliped.length > 1) evalPairFliped(pairFliped, copyState)
-    setOpenModal,
-    setStartGame,
+
+  const endOfTurn = () => {
+ 
+    const playerScore = [...players]
+    const playerIndex = players.findIndex( player => player.status === 'onMatch')
+    playerScore[playerIndex] =     {
+        moves: currentMoves,
+        pairs: currentPair,
+        time: currentTIME,
+        status: 'finish'
+      }
+    
+    setPlayers(playerScore)  
+  }
+
+
+  //   if (playerIndex !== -1) {
+  //     // Find a new player watting
+  //     const playerIndex = players.findIndex( player => player.status === 'await')
+  //     // Put him on Match
+  //     playerScore[playerIndex].status = 'onMatch' 
+  //     // Reestart game on true to set Timer on ture again
+
+  //     // 'shuffle deck'
+  //     dispatch({ type: 'newDeck', payload: state.length / 2})
+  //   } else {
+      
+  //     setWinScrean(true)
+  //   }
+  // }
+
+  console.log(gameState)
+
+  return {
+    players,
+    setPlayers,
+
+    timeLeft,
+    setTimeLeft, 
     
     handlerDeck,
     handlerPlayers,
 
-    state, 
-    dispatch,
+    deck, 
+    deckDispatch,
+
+    gameState, 
+    gameDispatch,
   }
 }
+
+//  Start game
+//  transiton : Reade 3,2,1 {Transition component}
+//  Set player.status = 'onMatch' in {Timer component}
+//  Start timer {Timer component}
+//  At set all card´s as matched {App Context component}
+//  Set player.status = 'finished' {App Context component}
+//  Look for more player.status = 'await' {App Context component}
+//  Repeat trnsition or set winScrean

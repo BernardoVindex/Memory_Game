@@ -9,7 +9,6 @@ import { Timer } from './components/Timer'
 import { FooterApp } from './components/Footer'
 import { PlayerCards } from './components/PlayerCard'
 import { Card } from './components/Card'
-import { CardWithReducer } from './components/CardREDUCER'
 
 /** To program:
  * - Turn´s logic
@@ -34,16 +33,23 @@ import { CardWithReducer } from './components/CardREDUCER'
 export const App = () => {
 
   const {
-    openModal,
     players,
-    startGame,
     setPlayers,
-    setOpenModal,
+
+    startGame,
     setStartGame,
+
+    timeLeft,
+    setTimeLeft, 
+    
     handlerDeck,
     handlerPlayers,
-    state, 
-    dispatch,
+
+    deck, 
+    deckDispatchs,
+
+    gameState, 
+    gameDispatch,
     } = useAppContext()
 
   return (
@@ -55,50 +61,51 @@ export const App = () => {
       </div>
       <Button
         className='Restart'
-        value={state.length / 2}
+        value={deck.length / 2}
         typeState='restart'
         setFunction={handlerDeck}
       />
       <Button
         className='Settings'
-        value={true} 
+        value={false} 
         typeState='settingOn'
-        setFunction={setOpenModal}
+        setFunction={setStartGame}
       />
     </HeaderApp>
 
-    {(!openModal) && (
+    {(gameState.playing) && (
       <Timer 
-        cards={state}
+        cards={deck}
         players={players}
+        setStartGame={setStartGame}
+        timeLeft={timeLeft}
+        setTimeLeft={setTimeLeft}
+        
     />)}
-      
 
     <Board
-      cards={state}
+      cards={deck}
       
-      render = { (state, index) => (
+      render = { (card, index) => (
         <Card
         key={index}
         cardID={index}
-        value={state.value}
-        fliped={state.fliped}
-        matched={state.matched}
-        dispatch={dispatch}
+        value={card.value}
+        fliped={card.fliped}
+        matched={card.matched}
+        deckDispatch={deckDispatch}
       />
     )}
     />
 
  
-    {(openModal) && (
+    {(gameState.setteings) && (
       <ModalSection>
         <Settings
-          cards={state}
-          openModal={openModal}
+          cards={deck}
           players={players}
           setPlayers={setPlayers}
-          setOpenModal={setOpenModal}
-          setStartGame={setStartGame}
+
           
           handlerDeck={handlerDeck}
           handlerPlayers={handlerPlayers}
@@ -114,7 +121,8 @@ export const App = () => {
         <PlayerCards
           key={player.playerNum}
           player={player.playerNum}
-          pairs={player.pairs}
+          pairs={player.pairs}  
+          status={player.status}
         />
       )} 
     />
