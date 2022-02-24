@@ -1,12 +1,16 @@
 import { Figure } from './styles'
 
-export const Card = ({ cardID, value, fliped, matched, dispatch }) => {
+export const Card = ({ cardID, value, fliped, matched, dispatch, playersDispatch }) => {
 
   const hanlderFlip = () => {  
     dispatch({
       type: 'flip',
       ID: cardID,
       fliped: fliped
+    })
+    playersDispatch({ 
+      type: 'onMove', 
+      playerStatus: 'onMatch'
     })
   }
 

@@ -75,8 +75,13 @@ export const App = () => {
           // timeLeft={timeLeft}
           // setTimeLeft={setTimeLeft}
         playersDispatch={playersDispatch}
+        gameDispatch={gameDispatch}
         
     />)}
+
+    {(gameState.gameBoard) && (
+      <p>Winers!!</p>
+    )}
 
     <Board
       cards={deck}
@@ -89,6 +94,7 @@ export const App = () => {
         fliped={card.fliped}
         matched={card.matched}
         dispatch={deckDispatch}
+        playersDispatch={playersDispatch}
       />
     )}
     />
