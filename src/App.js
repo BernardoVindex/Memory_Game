@@ -72,8 +72,9 @@ export const App = () => {
       <Timer 
         cards={deck}
         players={players}
-        timeLeft={timeLeft}
-        setTimeLeft={setTimeLeft}
+          // timeLeft={timeLeft}
+          // setTimeLeft={setTimeLeft}
+        playersDispatch={playersDispatch}
         
     />)}
 

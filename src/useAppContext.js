@@ -59,7 +59,7 @@ const reducer = (state, action) => {
 }
 
 const playerReducer = (state, action) => {
-  //const playerId = state.findIndex( player => player.status === action.playerStatus)
+  const playerId = state.findIndex( player => player.status === action.playerStatus)
   const newParty = [...state]
   switch (action.type) {
     case 'makeParty':
@@ -68,9 +68,12 @@ const playerReducer = (state, action) => {
           newParty.push({ playerNum: i, moves: 0, pairs: 0, time: 0, status: 'await' })
       }
       return newParty
-    case 'move':
-      console.log('DESDE move')
-      return state
+    case 'onTurn':
+      newParty[playerId].status = 'onMatch'
+      return newParty
+    case 'onMove':
+      newParty[playerId].moves += 1
+      return newParty
       
   }
 }
@@ -111,7 +114,7 @@ export const useAppContext = () => {
 
   const [players, playersDispatch] = useReducer(playerReducer, initialPlayerState)
  
-  const [timeLeft, setTimeLeft] = useState(0)
+  //const [timeLeft, setTimeLeft] = useState(0)
 
 
   const evalPairFliped = (pairFliped) => {
@@ -121,17 +124,20 @@ export const useAppContext = () => {
   }
 
   useEffect(() => {
-    playersDispatch({ type: 'move'})
+    
     const pairFliped = deck.filter( card => 
       card.fliped === true && card.matched === false 
     )
+
+    if (pairFliped.length !== 0) playersDispatch({ type: 'onMove', playerStatus: 'onMatch'})
+
     if (pairFliped.length > 1) evalPairFliped(pairFliped)
 
     if (!deck.some((card) => card.matched === false)) endOfTurn()
     
   },[deck])
+ 
   
-
   const endOfTurn = () => {
  
     const playerScore = [...players]
@@ -146,12 +152,13 @@ export const useAppContext = () => {
     setPlayers(playerScore)  
   }
 
+    console.log(players)
   return {
     players, 
     playersDispatch,
 
-    timeLeft,
-    setTimeLeft, 
+    // timeLeft,
+    // setTimeLeft, 
     
     deck, 
     deckDispatch,

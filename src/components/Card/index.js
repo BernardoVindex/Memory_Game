@@ -2,9 +2,7 @@ import { Figure } from './styles'
 
 export const Card = ({ cardID, value, fliped, matched, dispatch }) => {
 
-  const hanlderFlip = (e) => {  
-    console.log(e)
-    
+  const hanlderFlip = () => {  
     dispatch({
       type: 'flip',
       ID: cardID,
