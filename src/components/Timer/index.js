@@ -1,17 +1,15 @@
 import { TimeArea } from "./styles"
 import { useState, useEffect } from "react";
 
-export const Timer = ({ cards, playersDispatch, gameDispatch }) => {
+export const Timer = ({ cards, playersDispatch, gameDispatch, players }) => {
   const [timeLeft, setTimeLeft] = useState(0)
   
-  
-
   useEffect(()=> {
     let intervalId = null
 
-    // if (timeLeft === 0) playersDispatch({ 
-    //   type: 'onTurn', playerStatus: 'await'
-    // })
+    if (timeLeft === 0) playersDispatch({ 
+      type: 'onTurn', playerStatus: 'await'
+     })
     
     if (cards.some((card) => card.matched === false)) {
       intervalId = setInterval(() => {
@@ -23,14 +21,12 @@ export const Timer = ({ cards, playersDispatch, gameDispatch }) => {
         type: 'onFinish',
         payload: timeLeft,
         playerStatus: 'onMatch'
-      })
-      gameDispatch({
-        type: 'transition'
-      })
+      })    
+      setTimeLeft(0)
     }
 
      return () => {clearInterval(intervalId)}
-   },[cards])
+   },[cards],[timeLeft])
 
 
   return (
