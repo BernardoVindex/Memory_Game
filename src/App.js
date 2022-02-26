@@ -9,6 +9,7 @@ import { Timer } from './components/Timer'
 import { FooterApp } from './components/Footer'
 import { PlayerCards } from './components/PlayerCard'
 import { Card } from './components/Card'
+import { Brake } from './components/Brake'
 
 /** To program:
  * - Turn´s logic
@@ -42,6 +43,8 @@ export const App = () => {
 
     gameState, 
     gameDispatch,
+
+    checkForPlayers
   } = useAppContext()
 
   return (
@@ -71,11 +74,32 @@ export const App = () => {
         players={players}
         playersDispatch={playersDispatch}
         gameDispatch={gameDispatch}
+        checkForPlayers={checkForPlayers}
         
     />)}
 
     {(gameState.gameBoard) && (
       <p>Winers!!</p>
+    )}
+
+    {(gameState.settings) && (
+      <ModalSection>
+        <Settings
+          cards={deck}
+          players={players}
+
+
+          deckDispatch={deckDispatch}
+          gameDispatch={gameDispatch}
+          playersDispatch={playersDispatch}
+        />
+      </ModalSection>
+    )}
+
+    {(gameState.brake) && (
+      <ModalSection>
+        <Brake />
+      </ModalSection>
     )}
 
     <Board
@@ -93,21 +117,6 @@ export const App = () => {
       />
     )}
     />
-
- 
-    {(gameState.setteings) && (
-      <ModalSection>
-        <Settings
-          cards={deck}
-          players={players}
-
-
-          deckDispatch={deckDispatch}
-          gameDispatch={gameDispatch}
-          playersDispatch={playersDispatch}
-        />
-      </ModalSection>
-    )}
 
     <FooterApp
       players={players}

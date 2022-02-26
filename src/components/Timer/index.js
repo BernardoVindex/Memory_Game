@@ -8,7 +8,7 @@ export const Timer = ({ cards, playersDispatch, gameDispatch, players }) => {
     let intervalId = null
 
     if (timeLeft === 0) playersDispatch({ 
-      type: 'onTurn', playerStatus: 'await'
+      type: 'onTurn', playerStatus: 'waiting'
      })
     
     if (cards.some((card) => card.matched === false)) {
