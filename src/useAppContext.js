@@ -20,7 +20,7 @@ const initialGameState = {
 }
 
 const initialPlayerState = [
-  {playerNum: 1, moves: 0, pairs: 1, time: 0, status: 'await' }
+  {playerNum: 1, moves: 0, pairs: 0, time: 0, status: 'await' }
 ]
 
 
@@ -114,13 +114,18 @@ export const useAppContext = () => {
 
   const [players, playersDispatch] = useReducer(playerReducer, initialPlayerState)
  
-  //const [timeLeft, setTimeLeft] = useState(0)
-
-
   const evalPairFliped = (pairFliped) => {
     (pairFliped[0].value === pairFliped[1].value)
       ? deckDispatch({ type: 'match'})
       : deckDispatch({ type: 'unmatch'})
+  }
+
+  const checkForPlayers = () => {
+    (players.some( player => player.status === 'await'))
+    ? playersDispatch({ type: 'onTurn', playerStatus: 'await'})
+    : gameDispatch({type: 'endGame'})
+
+    deckDispatch({ type: 'newDeck', payload: deck.length / 2})
   }
 
   useEffect(() => {
@@ -133,7 +138,10 @@ export const useAppContext = () => {
 
     if (pairFliped.length > 1) evalPairFliped(pairFliped)
 
-    if (!deck.some((card) => card.matched === false)) endOfTurn()
+    if (!deck.some((card) => card.matched === false)) checkForPlayers()
+
+  },[deck])
+
     
   },[deck])
  
@@ -157,9 +165,6 @@ export const useAppContext = () => {
     players, 
     playersDispatch,
 
-    // timeLeft,
-    // setTimeLeft, 
-    
     deck, 
     deckDispatch,
 
