@@ -14,13 +14,17 @@ const initialState = [
 ]
 
 const initialGameState = {
-  setteings: true,
+  settings: false,
   playing: false,
+<<<<<<< HEAD
+=======
+  brake: true,
+>>>>>>> c23bf866d6ed8bcd8acac8eaac1960b8fa6623f7
   gameBoard: false
 }
 
 const initialPlayerState = [
-  {playerNum: 1, moves: 0, pairs: 0, time: 0, status: 'await' }
+  {playerNum: 1, moves: 0, pairs: 0, time: 0, status: 'waiting' }
 ]
 
 
@@ -65,7 +69,7 @@ const playerReducer = (state, action) => {
     case 'makeParty':
       newParty.length = 0
       for (let i = 1 ; i <= action.payload; i++){
-          newParty.push({ playerNum: i, moves: 0, pairs: 0, time: 0, status: 'await' })
+          newParty.push({ playerNum: i, moves: 0, pairs: 0, time: 0, status: 'waiting' })
       }
       return newParty
     case 'onTurn':
@@ -83,22 +87,42 @@ const gameReducer = (state, action) => {
     case 'configuring': 
       return  {
         ...state,
-        setteings: true,
+        settings: true,
         playing: false,
+<<<<<<< HEAD
+=======
+        brake: false,
+>>>>>>> c23bf866d6ed8bcd8acac8eaac1960b8fa6623f7
         gameBoard: false
       }
     case 'playing': 
       return  {
         ...state,
-        setteings: false,
+        settings: false,
         playing: true,
+<<<<<<< HEAD
+=======
+        brake: false,
+        gameBoard: false
+      }
+    case 'brake': 
+      return  {
+        ...state,
+        settings: false,
+        playing: false,
+        brake: true,
+>>>>>>> c23bf866d6ed8bcd8acac8eaac1960b8fa6623f7
         gameBoard: false
       }
     case 'endGame': 
       return  {
         ...state,
-        setteings: false,
+        settings: false,
         playing: false,
+<<<<<<< HEAD
+=======
+        brake: false,
+>>>>>>> c23bf866d6ed8bcd8acac8eaac1960b8fa6623f7
         gameBoard: true
       }
     default:
@@ -121,9 +145,9 @@ export const useAppContext = () => {
   }
 
   const checkForPlayers = () => {
-    (players.some( player => player.status === 'await'))
-    ? playersDispatch({ type: 'onTurn', playerStatus: 'await'})
-    : gameDispatch({type: 'endGame'})
+    (players.some( player => player.status === 'waiting'))
+      ? playersDispatch({ type: 'onTurn', playerStatus: 'waiting'})
+      : gameDispatch({type: 'endGame'})
 
     deckDispatch({ type: 'newDeck', payload: deck.length / 2})
   }
@@ -174,7 +198,7 @@ export const useAppContext = () => {
 }
 
 //  Start game
-//  transiton : Reade 3,2,1 {Transition component}
+//  transiton : Reade 3,2,1 {brake component}
 //  Set player.status = 'onMatch' in {Timer component}
 //  Start timer {Timer component}
 //  At set all card´s as matched {App Context component}
