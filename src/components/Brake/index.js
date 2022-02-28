@@ -2,6 +2,21 @@ import { useEffect, useState, useRef } from "react"
 import { Button } from "../Button";
 
 export const Brake = ({ gameDispatch }) => {
+
+  return (
+  <>
+    <p>Click when you´r ready</p>
+    <Button
+      className='Ready'
+      type='playing'
+      dispatch={gameDispatch}
+    >
+      READY!
+    </Button>
+  </>
+  )
+}
+
   // const [counter, setCounter] = useState(3)
   // useEffect(() => {
   //   const timer = 
@@ -27,26 +42,8 @@ export const Brake = ({ gameDispatch }) => {
   // useEffect(()=>{
   //   if(timer===0){
   //     clear()
-  //     // gameDispatch({ type: 'playing'})
   //   }
 
   // },[timer])
 
   
-
-  return (
-  <>
-    <p>The game start in:</p>
-    <p>{timer}</p>
-    <p>Click when you´r ready</p>
-    <Button
-      className='Ready'
-      type='playing'
-      gameDispatch={gameDispatch}
-      
-    >
-      READY!
-    </Button>
-  </>
-  )
-}
