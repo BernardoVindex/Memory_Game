@@ -98,7 +98,9 @@ export const App = () => {
 
     {(gameState.brake) && (
       <ModalSection>
-        <Brake />
+        <Brake 
+          gameDispatch={gameDispatch}
+        />
       </ModalSection>
     )}
 

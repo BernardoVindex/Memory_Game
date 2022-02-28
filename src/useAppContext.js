@@ -16,10 +16,7 @@ const initialState = [
 const initialGameState = {
   settings: false,
   playing: false,
-<<<<<<< HEAD
-=======
   brake: true,
->>>>>>> c23bf866d6ed8bcd8acac8eaac1960b8fa6623f7
   gameBoard: false
 }
 
@@ -78,7 +75,10 @@ const playerReducer = (state, action) => {
     case 'onMove':
       newParty[playerId].moves += 1
       return newParty
-      
+    case 'onFinish':
+      newParty[playerId].status = 'finish'
+      newParty[playerId].time = action.payload
+      return newParty
   }
 }
 
@@ -89,10 +89,7 @@ const gameReducer = (state, action) => {
         ...state,
         settings: true,
         playing: false,
-<<<<<<< HEAD
-=======
         brake: false,
->>>>>>> c23bf866d6ed8bcd8acac8eaac1960b8fa6623f7
         gameBoard: false
       }
     case 'playing': 
@@ -100,8 +97,6 @@ const gameReducer = (state, action) => {
         ...state,
         settings: false,
         playing: true,
-<<<<<<< HEAD
-=======
         brake: false,
         gameBoard: false
       }
@@ -111,7 +106,6 @@ const gameReducer = (state, action) => {
         settings: false,
         playing: false,
         brake: true,
->>>>>>> c23bf866d6ed8bcd8acac8eaac1960b8fa6623f7
         gameBoard: false
       }
     case 'endGame': 
@@ -119,10 +113,7 @@ const gameReducer = (state, action) => {
         ...state,
         settings: false,
         playing: false,
-<<<<<<< HEAD
-=======
         brake: false,
->>>>>>> c23bf866d6ed8bcd8acac8eaac1960b8fa6623f7
         gameBoard: true
       }
     default:
@@ -132,7 +123,7 @@ const gameReducer = (state, action) => {
 
 export const useAppContext = () => {
 
-  const [deck, deckDispatch] =  useReducer(reducer, initialState)
+  const [deck, deckDispatch] = useReducer(reducer, initialState)
 
   const [gameState, gameDispatch] = useReducer(gameReducer, initialGameState)
 
@@ -146,19 +137,16 @@ export const useAppContext = () => {
 
   const checkForPlayers = () => {
     (players.some( player => player.status === 'waiting'))
-      ? playersDispatch({ type: 'onTurn', playerStatus: 'waiting'})
+      ? gameDispatch({type: 'brake'})
       : gameDispatch({type: 'endGame'})
 
     deckDispatch({ type: 'newDeck', payload: deck.length / 2})
   }
 
   useEffect(() => {
-    
     const pairFliped = deck.filter( card => 
       card.fliped === true && card.matched === false 
     )
-
-    if (pairFliped.length !== 0) playersDispatch({ type: 'onMove', playerStatus: 'onMatch'})
 
     if (pairFliped.length > 1) evalPairFliped(pairFliped)
 
@@ -167,24 +155,7 @@ export const useAppContext = () => {
   },[deck])
 
     
-  },[deck])
- 
-  
-  const endOfTurn = () => {
- 
-    const playerScore = [...players]
-    const playerIndex = players.findIndex( player => player.status === 'onMatch')
-    playerScore[playerIndex] =     {
-        moves: currentMoves,
-        pairs: currentPair,
-        time: currentTIME,
-        status: 'finish'
-      }
-    
-    setPlayers(playerScore)  
-  }
-
-    console.log(players)
+  console.log(players)
   return {
     players, 
     playersDispatch,

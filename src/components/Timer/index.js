@@ -27,7 +27,7 @@ export const Timer = ({ cards, playersDispatch, gameDispatch, players }) => {
 
      return () => {clearInterval(intervalId)}
    },[cards],[timeLeft])
-
+   
 
   return (
     <TimeArea>
