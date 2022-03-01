@@ -15,20 +15,22 @@ import { Brake } from './components/Brake'
  * - Turn´s logic
  *  - - By time *
  *  - - By round
- * - Reset Time at changes 
- * - Card´s Animation
+ * - Use two type of clocks on timer
  * - Conexión to API Instagram
  * - Glow on clicked buttons
  * - App´s Logo 
  * - LocalStorage saving
  * - Media Queries to Tablet/desktop
- * - Style variables and styleMod
+ * - Style variables and styleMode
  * - Win screan
+ * - App´s Animation
  * 
- ** Issues
- * - 
- ** Questions
- * - Where shoud I write tun´s logic?
+ ** Bugs
+ * - Click settings or 'Start Game!' must change deck
+ * - Disabled cards when Timer is on count down Preparation
+ * 
+ ** Isues
+ * - Refactor useTimer
  */
 
 
@@ -74,6 +76,7 @@ export const App = () => {
         players={players}
         playersDispatch={playersDispatch}
         gameDispatch={gameDispatch}
+        checkForPlayers={checkForPlayers}
         checkForPlayers={checkForPlayers}
         
     />)}

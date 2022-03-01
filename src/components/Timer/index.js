@@ -2,26 +2,35 @@ import { TimeArea } from "./styles"
 import { useState, useEffect } from "react";
 import { useTimer } from "../../hooks/useTimer";
 
-export const Timer = ({ cards, playersDispatch, gameDispatch, players }) => {
+export const Timer = ({ cards, playersDispatch }) => {
   
-  const { counter } = useTimer(3)
+  const { counter, clockType } = useTimer(3)
   
+  useEffect(() => {
+    if (!counter) 
+    playersDispatch({ 
+      type: 'onTurn', playerStatus: 'waiting'
+    })
+  },[counter])
+
+  useEffect(() => {
+    if (!cards.some((card) => card.matched === false)) {
+      playersDispatch({ 
+      type: 'onFinish',
+      payload: counter,
+      playerStatus: 'onMatch'
+      })
+    }
+
+  },[cards])
+
   return (
     <>
-    {(counter !== 0) && (
-      <>
-      <p>Ready on</p>
-      <p>
+      <TimeArea
+        clockType={clockType}
+      >
         {counter}
-      </p>
-      </>
-    )}
-    
-    {/* <TimeArea
-
-    >
-      {counter}
-    </TimeArea> */}
+      </TimeArea>
     </>
   )
 }

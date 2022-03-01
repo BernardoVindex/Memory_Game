@@ -150,9 +150,13 @@ export const useAppContext = () => {
 
     if (pairFliped.length > 1) evalPairFliped(pairFliped)
 
-    if (!deck.some((card) => card.matched === false)) checkForPlayers()
+    if (!deck.some((card) => card.matched === false)) {
+      checkForPlayers()
+    }
 
   },[deck])
+
+  
 
     
   console.log(players)
