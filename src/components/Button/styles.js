@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-export const  ButtonForm = styled.button`
+export const ButtonForm = styled.button`
   min-width: 75px;
   min-height: 30px;
   height: 40px;
@@ -23,4 +23,8 @@ export const  ButtonForm = styled.button`
   border-radius: 5px;
   background-color: orange;
   `}
+
+  /* ${props => props.glowCurrentState !== props.value && css`
+  background-color: orange;
+  `} */
 `

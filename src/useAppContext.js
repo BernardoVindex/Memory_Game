@@ -14,9 +14,9 @@ const initialState = [
 ]
 
 const initialGameState = {
-  settings: false,
+  settings: true,
   playing: false,
-  brake: true,
+  brake: false,
   gameBoard: false
 }
 
@@ -121,6 +121,12 @@ const gameReducer = (state, action) => {
   }
 }
 
+const gameModeReducer = (state, action) => {
+  switch (action.type) {
+    
+  }
+}
+
 export const useAppContext = () => {
 
   const [deck, deckDispatch] = useReducer(reducer, initialState)
@@ -128,6 +134,8 @@ export const useAppContext = () => {
   const [gameState, gameDispatch] = useReducer(gameReducer, initialGameState)
 
   const [players, playersDispatch] = useReducer(playerReducer, initialPlayerState)
+
+  const [gameMode, gameModeDispatch] = useReducer(gameModeReducer, [])
  
   const evalPairFliped = (pairFliped) => {
     (pairFliped[0].value === pairFliped[1].value)

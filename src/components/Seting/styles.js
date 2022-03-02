@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 export const SettingsSection = styled.section`
   background: #fefefe;
@@ -11,6 +11,5 @@ export const Tittle = styled.h3`
   color: #162938;
   text-align: left;
   margin: 10px;
-
 
 `

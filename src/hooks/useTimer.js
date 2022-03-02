@@ -19,6 +19,14 @@ export const useTimer = (time) => {
       setTimer( (time) => time + 1 )
     }, 1000)
   }
+
+  const clock = () => {   
+    id.current = window.setInterval( () => {
+    setTimer((time) => {
+     return (clockType === 'count_down_Clock')
+      ? time - 1
+      : time + 1})
+  }, 1000)}
   
   useEffect(() => {
     countDown()
@@ -29,8 +37,9 @@ export const useTimer = (time) => {
   useEffect(()=>{
     if(!counter) {
       stopTimer()
-      chronometer()
+      //chronometer()
       setClockType('digital_Clock')
+      clock()
     }
   },[counter])
 
