@@ -1,5 +1,5 @@
 import { TimeArea } from "./styles"
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useTimer } from "../../hooks/useTimer";
 
 export const Timer = ({ cards, playersDispatch }) => {

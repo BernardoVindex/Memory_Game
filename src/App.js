@@ -47,7 +47,7 @@ export const App = () => {
     gameDispatch,
 
     checkForPlayers
-  } = useAppContext()
+  } = useAppContext() 
 
   return (
   <>
