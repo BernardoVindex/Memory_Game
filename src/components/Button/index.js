@@ -1,6 +1,12 @@
 import { ButtonForm } from "./styles"
 
-export const Button = ({ value, className, type, dispatch, playerStatus, glowCurrentState }) => {
+export const Button = ({ 
+  value,
+  className,
+  type,
+  dispatch,
+  playerStatus,
+  glowCurrentState }) => {
 
   const handlerEvent = () => {
     dispatch({type: type, payload: value, playerStatus: playerStatus})

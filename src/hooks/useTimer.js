@@ -1,8 +1,15 @@
 import { useState, useEffect, useRef } from "react";
 
 export const useTimer = (time) => {
-  const [counter, setTimer] = useState(time)
+  const prepTime = 3
+  const deadLine = time
+  
+  const [counter, setTimer] = useState(prepTime)
+  // Warning: This timer works for countdown_preparation, digital_clock
   const [clockType, setClockType] = useState('count_down_Clock')
+  // 'countdown_preparation' || 'digital_clock'
+  const [timerMode, setTimerMode] = useState('chronometer')
+  // 'countDown' || 'chronometer'
 
   const id = useRef(null);
   const stopTimer = () => {
@@ -20,14 +27,16 @@ export const useTimer = (time) => {
     }, 1000)
   }
 
-  const clock = () => {   
+  // startCounting Not Ready (perhaps it realy works)
+  const startCounting = () => {   
     id.current = window.setInterval( () => {
     setTimer((time) => {
-     return (clockType === 'count_down_Clock')
+     return (timerMode === 'chronometer')
       ? time - 1
       : time + 1})
   }, 1000)}
   
+
   useEffect(() => {
     countDown()
     return () => stopTimer()
@@ -39,7 +48,7 @@ export const useTimer = (time) => {
       stopTimer()
       //chronometer()
       setClockType('digital_Clock')
-      clock()
+      startCounting()
     }
   },[counter])
 
@@ -47,10 +56,9 @@ export const useTimer = (time) => {
 
   return {
     counter,
-    countDown,
-    chronometer,
-    clockType 
-    
+    clockType,
+    startCounting,
+    setTimerMode
   }
 }
 

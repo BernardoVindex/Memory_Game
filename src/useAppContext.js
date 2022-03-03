@@ -128,20 +128,69 @@ const gameModeReducer = (state, action) => {
 }
 
 export const useAppContext = () => {
+  // const [deck, deckDispatch] = useReducer(reducer, initialState)
+  // const [gameState, gameDispatch] = useReducer(gameReducer, initialGameState)
+  // const [players, playersDispatch] = useReducer(playerReducer, initialPlayerState)
+  // const [gameMode, gameModeDispatch] = useReducer(gameModeReducer, [])
+  
+  const {   
+    deck,
+    deckGenerator,
+    changeCardsValues,
+    evalPairFliped
+  } = useCards()
 
-  const [deck, deckDispatch] = useReducer(reducer, initialState)
+  const {
+    players,
+    partyGenerator,
+    changePlayerValues
+  } = usePlayers()
 
-  const [gameState, gameDispatch] = useReducer(gameReducer, initialGameState)
+  const {
+    //counter, // Risk of rendering every timer tick
+    countDown,
+    chronometer,
+    clockType 
+  } = useTimer()
 
-  const [players, playersDispatch] = useReducer(playerReducer, initialPlayerState)
+  const [gameState, setGameState] = useState({
+    settings: true,
+    playing: false,
+    brake: false,
+    gameBoard: false
+  })
 
-  const [gameMode, gameModeDispatch] = useReducer(gameModeReducer, [])
- 
-  const evalPairFliped = (pairFliped) => {
-    (pairFliped[0].value === pairFliped[1].value)
-      ? deckDispatch({ type: 'match'})
-      : deckDispatch({ type: 'unmatch'})
+  const [gameConfig, setGameConfig] = useState({
+    typeOfCards: 'Num',
+    gameMode: 'Speed_Run', //'deadLine'
+    time: 60000, // Not determinated yet 
+    //time: 01:00:00 (bttn1 = 60,000-5,000) (bttn1 = 60,000+5,000)
+    pairs: 5,
+    players: 4,
+    gameStatus: 'configuring' // Not determinated yet
+  })
+
+  const changeGameState = (key) => {
+    const defaultGameState = {
+      settings: false,
+      playing: false,
+      brake: false,
+      gameBoard: false
+    }
+    
+    defaultGameState[key] =  true
+    
+    return  setGameState(defaultGameState)
   }
+  
+  useEffect(() => {
+    // Prevet for unnecessary excecute on '.gameStatus' changes
+    if (gameState.playing){
+      deckGenerator(gameConfig.pairs)
+      partyGenerator(gameConfig.player)
+    }
+  },[gameConfig])
+
 
   const checkForPlayers = () => {
     (players.some( player => player.status === 'waiting'))
@@ -155,36 +204,14 @@ export const useAppContext = () => {
     const pairFliped = deck.filter( card => 
       card.fliped === true && card.matched === false 
     )
-
-    if (pairFliped.length > 1) evalPairFliped(pairFliped)
-
+    if (pairFliped.length > 1) 
+      evalPairFliped(pairFliped[0].value === pairFliped[1].value)
+      
     if (!deck.some((card) => card.matched === false)) {
       checkForPlayers()
     }
-
   },[deck])
 
-  
-
-    
-  console.log(players)
   return {
-    players, 
-    playersDispatch,
-
-    deck, 
-    deckDispatch,
-
-    gameState, 
-    gameDispatch,
   }
 }
-
-//  Start game
-//  transiton : Reade 3,2,1 {brake component}
-//  Set player.status = 'onMatch' in {Timer component}
-//  Start timer {Timer component}
-//  At set all card´s as matched {App Context component}
-//  Set player.status = 'finished' {App Context component}
-//  Look for more player.status = 'await' {App Context component}
-//  Repeat trnsition or set winScrean

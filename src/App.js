@@ -76,9 +76,7 @@ export const App = () => {
         players={players}
         playersDispatch={playersDispatch}
         gameDispatch={gameDispatch}
-        checkForPlayers={checkForPlayers}
-        checkForPlayers={checkForPlayers}
-        
+        checkForPlayers={checkForPlayers}        
     />)}
 
     {(gameState.gameBoard) && (
