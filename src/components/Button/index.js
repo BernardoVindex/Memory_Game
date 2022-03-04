@@ -3,20 +3,22 @@ import { ButtonForm } from "./styles"
 export const Button = ({ 
   value,
   className,
-  type,
-  dispatch,
-  playerStatus,
-  glowCurrentState }) => {
+  setFunction,
+  gameStateKey
+}) => {
 
   const handlerEvent = () => {
-    dispatch({type: type, payload: value, playerStatus: playerStatus})
+    setFunction(prevState => ({
+      ...prevState, 
+      [gameStateKey]: value
+    }))
   }
   
   return (
     <ButtonForm
       className={className}      
       onClick={handlerEvent}
-      glowCurrentState={glowCurrentState}
+      //glowCurrentState={glowCurrentState}
     >
       {className}
     </ButtonForm>

@@ -2,9 +2,9 @@ import { useState, useEffect } from 'react'
 
 const initialPlayerState = [
   {playerNum: 1, moves: 0, pairs: 0, time: 0, status: 'waiting' },
-  {playerNum: 1, moves: 0, pairs: 0, time: 0, status: 'waiting' },
-  {playerNum: 1, moves: 0, pairs: 0, time: 0, status: 'waiting' },
-  {playerNum: 1, moves: 0, pairs: 0, time: 0, status: 'waiting' }
+  {playerNum: 2, moves: 0, pairs: 0, time: 0, status: 'waiting' },
+  {playerNum: 3, moves: 0, pairs: 0, time: 0, status: 'waiting' },
+  {playerNum: 4, moves: 0, pairs: 0, time: 0, status: 'waiting' }
 ]
 
 export const usePlayers = (pairs) => {

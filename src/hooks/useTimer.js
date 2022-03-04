@@ -36,11 +36,11 @@ export const useTimer = (time) => {
       : time + 1})
   }, 1000)}
   
-
-  useEffect(() => {
-    countDown()
-    return () => stopTimer()
-  },[])
+  // Warning, activate on useAppCotext
+  // useEffect(() => {
+  //   countDown()
+  //   return () => stopTimer()
+  // },[])
 
 
   useEffect(()=>{

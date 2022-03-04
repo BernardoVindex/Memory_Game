@@ -37,16 +37,24 @@ import { Brake } from './components/Brake'
 export const App = () => {
 
   const {
-    players, 
-    playersDispatch,
+    deck,
+    deckGenerator,
+    changeCardsValues,
+    evalPairFliped,
 
-    deck, 
-    deckDispatch,
+    players,
+    partyGenerator,
+    changePlayerValues,
+
+    countDown,
+    chronometer,
+    clockType,
 
     gameState, 
-    gameDispatch,
+    setGameState,
 
-    checkForPlayers
+    gameConfig, 
+    setGameConfig
   } = useAppContext() 
 
   return (
@@ -60,13 +68,11 @@ export const App = () => {
         className='Restart'
         value={deck.length / 2}
         type='newDeck'
-        dispatch={deckDispatch}
       />
       <Button
         className='Settings'
         value={false} 
         type='configuring'
-        dispatch={gameDispatch}
       />
     </HeaderApp>
 
@@ -74,9 +80,6 @@ export const App = () => {
       <Timer 
         cards={deck}
         players={players}
-        playersDispatch={playersDispatch}
-        gameDispatch={gameDispatch}
-        checkForPlayers={checkForPlayers}        
     />)}
 
     {(gameState.gameBoard) && (
@@ -88,11 +91,11 @@ export const App = () => {
         <Settings
           cards={deck}
           players={players}
+          gameConfig={gameConfig}
+          gameState={gameState}
 
-
-          deckDispatch={deckDispatch}
-          gameDispatch={gameDispatch}
-          playersDispatch={playersDispatch}
+          setGameConfig={setGameConfig}
+          setGameState={setGameState}
         />
       </ModalSection>
     )}
@@ -100,25 +103,22 @@ export const App = () => {
     {(gameState.brake) && (
       <ModalSection>
         <Brake 
-          gameDispatch={gameDispatch}
+
         />
       </ModalSection>
     )}
 
     <Board
       cards={deck}
-      
       render = { (card, index) => (
         <Card
-        key={index}
-        cardID={index}
-        value={card.value}
-        fliped={card.fliped}
-        matched={card.matched}
-        dispatch={deckDispatch}
-        playersDispatch={playersDispatch}
+          key={index}
+          cardID={index}
+          value={card.value}
+          fliped={card.fliped}
+          matched={card.matched}
       />
-    )}
+      )}
     />
 
     <FooterApp
