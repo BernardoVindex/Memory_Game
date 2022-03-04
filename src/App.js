@@ -12,10 +12,7 @@ import { Card } from './components/Card'
 import { Brake } from './components/Brake'
 
 /** To program:
- * - Turn´s logic
- *  - - By time *
- *  - - By round
- * - Use two type of clocks on timer
+ * - Create one Component for countdown and other for timer
  * - Conexión to API Instagram
  * - Glow on clicked buttons
  * - App´s Logo 
@@ -51,7 +48,7 @@ export const App = () => {
     clockType,
 
     gameState, 
-    setGameState,
+    changeGameState,
 
     gameConfig, 
     setGameConfig
@@ -67,40 +64,45 @@ export const App = () => {
       <Button
         className='Restart'
         value={deck.length / 2}
-        type='newDeck'
+        gameStateKey='pairs'
+        setFunction={setGameConfig}
       />
       <Button
         className='Settings'
-        value={false} 
-        type='configuring'
+        value='configuring'
+        gameStateKey='gameStatus'
+        setFunction={setGameConfig}
       />
     </HeaderApp>
 
-    {(gameState.playing) && (
+    {(gameConfig.gameStatus === 'playing') && (
       <Timer 
         cards={deck}
         players={players}
-    />)}
+        gameConfig={gameConfig}
 
-    {(gameState.gameBoard) && (
+
+        setGameConfig={setGameConfig}
+        changePlayerValues={changePlayerValues}
+      />
+    )}
+
+    {(gameConfig.gameStatus === 'gameBoard') && (
       <p>Winers!!</p>
     )}
 
-    {(gameState.settings) && (
+    {(gameConfig.gameStatus === 'configuring') && (
       <ModalSection>
         <Settings
           cards={deck}
           players={players}
           gameConfig={gameConfig}
-          gameState={gameState}
-
           setGameConfig={setGameConfig}
-          setGameState={setGameState}
         />
       </ModalSection>
     )}
 
-    {(gameState.brake) && (
+    {(gameConfig.gameStatus === 'brake') && (
       <ModalSection>
         <Brake 
 

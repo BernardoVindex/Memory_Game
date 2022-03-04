@@ -8,7 +8,7 @@ export const useTimer = (time) => {
   // Warning: This timer works for countdown_preparation, digital_clock
   const [clockType, setClockType] = useState('count_down_Clock')
   // 'countdown_preparation' || 'digital_clock'
-  const [timerMode, setTimerMode] = useState('chronometer')
+  const [timerMode, setTimerMode] = useState('countDown')
   // 'countDown' || 'chronometer'
 
   const id = useRef(null);
@@ -16,24 +16,12 @@ export const useTimer = (time) => {
     window.clearInterval(id.current)
   }
   
-  const countDown = () => {   
-    id.current = window.setInterval( () => {
-    setTimer( (time) => time - 1 )
-  }, 1000)}
-
-  const chronometer = () => {
-    id.current = window.setInterval( () => {
-      setTimer( (time) => time + 1 )
-    }, 1000)
-  }
-
-  // startCounting Not Ready (perhaps it realy works)
   const startCounting = () => {   
     id.current = window.setInterval( () => {
     setTimer((time) => {
      return (timerMode === 'chronometer')
-      ? time - 1
-      : time + 1})
+      ? time + 1
+      : time - 1})
   }, 1000)}
   
   // Warning, activate on useAppCotext
@@ -46,17 +34,16 @@ export const useTimer = (time) => {
   useEffect(()=>{
     if(!counter) {
       stopTimer()
-      //chronometer()
       setClockType('digital_Clock')
       startCounting()
     }
   },[counter])
-
-  
+  console.log(timerMode)  
 
   return {
     counter,
     clockType,
+    timerMode,
     startCounting,
     setTimerMode
   }
@@ -70,3 +57,14 @@ export const useTimer = (time) => {
   //   }, 1000)
   //   return () => stopTimer()
   // },[])
+
+  // const countDown = () => {   
+  //   id.current = window.setInterval( () => {
+  //   setTimer( (time) => time - 1 )
+  // }, 1000)}
+
+  // const chronometer = () => {
+  //   id.current = window.setInterval( () => {
+  //     setTimer( (time) => time + 1 )
+  //   }, 1000)
+  // }

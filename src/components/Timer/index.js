@@ -2,24 +2,40 @@ import { TimeArea } from "./styles"
 import { useEffect } from "react";
 import { useTimer } from "../../hooks/useTimer";
 
-export const Timer = ({ cards, playersDispatch }) => {
+export const Timer = ({ 
+  cards,
+  players,
+  gameConfig,
+  setGameConfig,
+  changePlayerValues
+}) => {
   
-  const { counter, clockType } = useTimer(3)
+  const { counter, clockType, startCounting, } = useTimer(gameConfig.time)
   
   useEffect(() => {
-    if (!counter) 
-    playersDispatch({ 
-      type: 'onTurn', playerStatus: 'waiting'
-    })
+    startCounting()
+    console.log('Start countdown preparation')
+  },[])
+
+
+  useEffect(() => {
+    if (!counter)
+    changePlayerValues('waiting','status','onMatch')
+    
+    // playersDispatch({ 
+    //   type: 'onTurn', playerStatus: 'waiting'
+    // })
   },[counter])
 
   useEffect(() => {
     if (!cards.some((card) => card.matched === false)) {
-      playersDispatch({ 
-      type: 'onFinish',
-      payload: counter,
-      playerStatus: 'onMatch'
-      })
+    //   playersDispatch({ 
+    //   type: 'onFinish',
+    //   payload: counter,
+    //   playerStatus: 'onMatch'
+    //   })
+
+      setGameConfig()
     }
 
   },[cards])

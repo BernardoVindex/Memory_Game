@@ -19,16 +19,29 @@ export const useCards = (pairs) => {
   const newDeckValues = [...deck]
   
   const deckGenerator = (pairs) => {
-    const cardBase = {
-      value: valueCard,
-      fliped: false,
-      matched:false
-    }
-    const deck = new Array(pairs).fill(cardBase)
+    // Pending for refactor
+    // const deck = new Array(pairs).fill({
+    //   value: 0,
+    //   fliped: false,
+    //   matched:false
+    // })
     
-    deck.forEach((card, i) => deck.unshift(cardBase))
-    deck.sort(() => Math.random() - 0.5)
-    setDeck(deck)
+    // deck.forEach((card, i) => deck.unshift({
+    //   value: 0,
+    //   fliped: false,
+    //   matched:false
+    // }))
+    
+    const newDeck = []
+    for (let i = pairs; i > 0; i--) { 
+      newDeck.push({value: i, fliped: false, matched:false})
+    }
+    newDeck.forEach( (card, i) => 
+      newDeck.unshift({value: i+1 , fliped: false, matched:false}) 
+    )
+    newDeck.sort(() => Math.random() - 0.5)
+    
+    return setDeck(newDeck)
   }
 
   const changeCardsValues = (

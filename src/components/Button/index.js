@@ -18,7 +18,6 @@ export const Button = ({
     <ButtonForm
       className={className}      
       onClick={handlerEvent}
-      //glowCurrentState={glowCurrentState}
     >
       {className}
     </ButtonForm>

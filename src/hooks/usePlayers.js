@@ -13,17 +13,28 @@ export const usePlayers = (pairs) => {
 
 
   const partyGenerator = (partySize) => {
-    const playerBase = {
-      playerNum: 1,
+    // Checkfor refactor
+    // const playerBase = {
+    //   playerNum: 1,
+    //   moves: 0,
+    //   pairs: 0,
+    //   time: 0,
+    //   status: 'waiting'
+    // }
+
+    // const party = new Array(partySize).fill(playerBase)
+    // party.forEach((player, index) => player.playerNum = index + 1)
+    
+    const newParty = []
+    for (let i = 1 ; i <= partySize; i++){
+      newParty.push({
+      playerNum: i,
       moves: 0,
       pairs: 0,
       time: 0,
-      status: 'waiting'
-    }
-
-    const party = new Array(partySize).fill(playerBase)
-
-    setPlayers(party)
+      status: 'waiting' })
+  }
+    setPlayers(newParty)
   }
 
   const changePlayerValues = (

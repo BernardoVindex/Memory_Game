@@ -20,9 +20,11 @@ export const useAppContext = () => {
 
   const {
     //counter, // Risk of rendering every timer tick
+    clockType,
+    timerMode,
     countDown,
-    chronometer,
-    clockType 
+    startCounting,
+    setTimerMode
   } = useTimer()
 
   const [gameState, setGameState] = useState({
@@ -34,35 +36,38 @@ export const useAppContext = () => {
 
   const [gameConfig, setGameConfig] = useState({
     typeOfCards: 'Num',
-    gameMode: 'Speed_Run', //'Dead_Line'
-    time: 60000, // Not determinated yet 
+    gameMode: 'chronometer', //'countDown'
+    time: 5000, // 60000
     //time: 01:00:00 (bttn1 = 60,000-5,000) (bttn1 = 60,000+5,000)
     pairs: 5,
     players: 4,
-    gameStatus: 'configuring' // Not determinated yet
+    gameStatus: 'configuring'
   })
 
-  const changeGameState = (key) => {
-    const defaultGameState = {
-      settings: false,
-      playing: false,
-      brake: false,
-      gameBoard: false
-    }
+  // const changeGameState = (key) => {
+  //   const defaultGameState = {
+  //     settings: false,
+  //     playing: false,
+  //     brake: false,
+  //     gameBoard: false
+  //   }
     
-    defaultGameState[key] =  true
+  //   defaultGameState[key] =  true
     
-    return  setGameState(defaultGameState)
-  }
-  
+  //   return  setGameState(defaultGameState)
+  // }
+    
   useEffect(() => {
     // Prevet for unnecessary excecute on '.gameStatus' changes
-    if (gameState.playing){
+    if (gameConfig.gameStatus === 'playing'){
       deckGenerator(gameConfig.pairs)
-      partyGenerator(gameConfig.player)
+      partyGenerator(gameConfig.players)
+      setTimerMode(gameConfig.gameMode)
+      console.log(gameConfig.gameMode)
+      console.log(timerMode)
     }
   },[gameConfig])
-
+  console.log(timerMode)
 
   const checkForPlayers = () => {
     (players.some( player => player.status === 'waiting'))
@@ -97,11 +102,10 @@ export const useAppContext = () => {
     changePlayerValues,
 
     countDown,
-    chronometer,
     clockType,
 
     gameState, 
-    setGameState,
+    setGameConfig,
 
     gameConfig, 
     setGameConfig
