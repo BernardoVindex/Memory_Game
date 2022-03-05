@@ -1,27 +1,28 @@
 import { useState, useEffect, useRef } from "react";
 
-export const useTimer = (time) => {
+export const useTimer = (dlTime, timerM) => { 
   const prepTime = 3
-  const deadLine = time
-  
-  const [counter, setTimer] = useState(prepTime)
+  const deadLineTime = dlTime
+
+  const [counter, setCounter] = useState(prepTime)
   // Warning: This timer works for countdown_preparation, digital_clock
   const [clockType, setClockType] = useState('count_down_Clock')
   // 'countdown_preparation' || 'digital_clock'
   const [timerMode, setTimerMode] = useState('countDown')
   // 'countDown' || 'chronometer'
 
+
   const id = useRef(null);
   const stopTimer = () => {
     window.clearInterval(id.current)
   }
   
-  const startCounting = () => {   
+  const startCounting = (time) => {   
     id.current = window.setInterval( () => {
-    setTimer((time) => {
-     return (timerMode === 'chronometer')
-      ? time + 1
-      : time - 1})
+      setCounter((time) => {
+      return (timerMode === 'chronometer')
+        ? time + 1
+        : time - 1})
   }, 1000)}
   
   // Warning, activate on useAppCotext
@@ -30,22 +31,25 @@ export const useTimer = (time) => {
   //   return () => stopTimer()
   // },[])
 
-
   useEffect(()=>{
     if(!counter) {
       stopTimer()
       setClockType('digital_Clock')
+      setTimerMode(timerM)
+      console.log(timerMode)
+      setCounter(deadLineTime)
       startCounting()
     }
   },[counter])
-  console.log(timerMode)  
 
   return {
     counter,
     clockType,
     timerMode,
+    stopTimer,
     startCounting,
-    setTimerMode
+    setTimerMode,
+    setClockType
   }
 }
 

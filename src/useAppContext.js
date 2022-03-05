@@ -37,7 +37,7 @@ export const useAppContext = () => {
   const [gameConfig, setGameConfig] = useState({
     typeOfCards: 'Num',
     gameMode: 'chronometer', //'countDown'
-    time: 5000, // 60000
+    time: 5, // 60000
     //time: 01:00:00 (bttn1 = 60,000-5,000) (bttn1 = 60,000+5,000)
     pairs: 5,
     players: 4,

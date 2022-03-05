@@ -1,5 +1,5 @@
 import { TimeArea } from "./styles"
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useTimer } from "../../hooks/useTimer";
 
 export const Timer = ({ 
@@ -8,10 +8,18 @@ export const Timer = ({
   gameConfig,
   setGameConfig,
   changePlayerValues
-}) => {
+}) => {  
   
-  const { counter, clockType, startCounting, } = useTimer(gameConfig.time)
-  
+  const {
+    counter,
+    clockType,
+    timerMode,
+    stopTimer,
+    startCounting,
+    setTimerMode,
+    setClockType
+  } = useTimer(gameConfig.time, gameConfig.gameMode)
+    
   useEffect(() => {
     startCounting()
     console.log('Start countdown preparation')
@@ -19,12 +27,17 @@ export const Timer = ({
 
 
   useEffect(() => {
-    if (!counter)
-    changePlayerValues('waiting','status','onMatch')
+    //if (!counter)
+    //stopTimer()
+    //setClockType('digital_clock')  
+    //changePlayerValues('waiting','status','onMatch')
+    //console.log(gameConfig.time)
+    //startCounting(gameConfig.time)
     
-    // playersDispatch({ 
-    //   type: 'onTurn', playerStatus: 'waiting'
-    // })
+
+  //   // playersDispatch({ 
+  //   //   type: 'onTurn', playerStatus: 'waiting'
+  //   // })
   },[counter])
 
   useEffect(() => {
