@@ -1,58 +1,89 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useReducer } from "react";
+
+const initialState = {
+  counter: 3,
+  clockType: 'countdown_preparation',
+  TimerMode: 'countDown'
+}
+
+const timerReducer = (state, action) => {
+  switch (action.type) {
+    case 'Preparation':
+      return {
+        ...state,
+        counter: 3,
+        clockType: 'countdown_preparation',
+        TimerMode: 'countDown'
+      }
+    case 'Speed_Run':
+      return {
+        ...state,
+        counter: 0,
+        clockType: 'digital_clock',
+        TimerMode: 'chronometer'
+      }
+    case 'Dead_Line':
+      return {
+        ...state,
+        counter: action.timeLimit,
+        clockType: 'digital_clock',
+        TimerMode: 'countDown'
+      }
+    case 'Add_Time':
+      return {
+        ...state,
+        counter: state.counter + 1,
+      }
+    case 'Reduce_Time':
+      return {
+        ...state,
+        counter: state.counter - 1,
+      }
+    default:
+      throw new Error(`type action desconocido: ${action.type}`)
+  }
+}
 
 export const useTimer = (dlTime, timerM) => { 
-  const prepTime = 3
-  const deadLineTime = dlTime
-
-  const [counter, setCounter] = useState(prepTime)
-  // Warning: This timer works for countdown_preparation, digital_clock
-  const [clockType, setClockType] = useState('count_down_Clock')
-  // 'countdown_preparation' || 'digital_clock'
-  const [timerMode, setTimerMode] = useState('countDown')
-  // 'countDown' || 'chronometer'
-
+  const [timerState, dispatchTimerState] = useReducer(timerReducer, initialState)
 
   const id = useRef(null);
   const stopTimer = () => {
     window.clearInterval(id.current)
   }
   
-  const startCounting = (time) => {   
-    id.current = window.setInterval( () => {
-      setCounter((time) => {
-      return (timerMode === 'chronometer')
-        ? time + 1
-        : time - 1})
+  const initializedTimer = () => {   
+    id.current = window.setInterval(() => {
+      (timerState.TimerMode === 'chronometer')
+        ? dispatchTimerState({type: 'Add_Time'})
+        : dispatchTimerState({type: 'Reduce_Time'})
   }, 1000)}
-  
+
+  useEffect(()=>{
+    if (timerState.counter < 0 ) {
+      stopTimer()
+      dispatchTimerState({type: 'Speed_Run'})
+      initializedTimer()
+    }
+    
+    if (timerState.clockType === 'countdown_preparation') {      
+      
+    }
+
+  },[timerState])
+
+  return {
+    timerState, 
+    dispatchTimerState,
+    initializedTimer,
+  }
+}
+
   // Warning, activate on useAppCotext
   // useEffect(() => {
   //   countDown()
   //   return () => stopTimer()
   // },[])
-
-  useEffect(()=>{
-    if(!counter) {
-      stopTimer()
-      setClockType('digital_Clock')
-      setTimerMode(timerM)
-      console.log(timerMode)
-      setCounter(deadLineTime)
-      startCounting()
-    }
-  },[counter])
-
-  return {
-    counter,
-    clockType,
-    timerMode,
-    stopTimer,
-    startCounting,
-    setTimerMode,
-    setClockType
-  }
-}
-
 
   // useEffect(()=>{
   //    id.current = window.setInterval( () => {
@@ -72,3 +103,18 @@ export const useTimer = (dlTime, timerM) => {
   //     setTimer( (time) => time + 1 )
   //   }, 1000)
   // }
+
+  // const [counter, setCounter] = useState(prepTime)
+  // // Warning: This timer works for countdown_preparation, digital_clock
+  // const [clockType, setClockType] = useState('count_down_Clock')
+  // // 'countdown_preparation' || 'digital_clock'
+  // const [timerMode, setTimerMode] = useState('countDown')
+  // // 'countDown' || 'chronometer'
+
+    // const startCounting = (time) => {   
+  //   id.current = window.setInterval( () => {
+  //     setCounter((time) => {
+  //     return (timerMode === 'chronometer')
+  //       ? time + 1
+  //       : time - 1})
+  // }, 1000)}

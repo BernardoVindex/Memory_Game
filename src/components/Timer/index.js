@@ -11,34 +11,24 @@ export const Timer = ({
 }) => {  
   
   const {
-    counter,
-    clockType,
-    timerMode,
-    stopTimer,
-    startCounting,
-    setTimerMode,
-    setClockType
-  } = useTimer(gameConfig.time, gameConfig.gameMode)
+    timerState, 
+    dispatchTimerState,
+    initializedTimer
+  } = useTimer()
     
   useEffect(() => {
-    startCounting()
+    initializedTimer()
     console.log('Start countdown preparation')
   },[])
 
 
-  useEffect(() => {
-    //if (!counter)
-    //stopTimer()
-    //setClockType('digital_clock')  
-    //changePlayerValues('waiting','status','onMatch')
-    //console.log(gameConfig.time)
-    //startCounting(gameConfig.time)
-    
+  // useEffect(() => {
+  //   if (!counter)
 
-  //   // playersDispatch({ 
-  //   //   type: 'onTurn', playerStatus: 'waiting'
-  //   // })
-  },[counter])
+  //   playersDispatch({ 
+  //     type: 'onTurn', playerStatus: 'waiting'
+  //   })
+  // },[counter])
 
   useEffect(() => {
     if (!cards.some((card) => card.matched === false)) {
@@ -52,13 +42,13 @@ export const Timer = ({
     }
 
   },[cards])
-
+  console.log(timerState)
   return (
     <>
       <TimeArea
-        clockType={clockType}
+        clockType='Tipo de relok'
       >
-        {counter}
+        {}
       </TimeArea>
     </>
   )

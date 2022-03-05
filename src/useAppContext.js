@@ -19,12 +19,7 @@ export const useAppContext = () => {
   } = usePlayers()
 
   const {
-    //counter, // Risk of rendering every timer tick
-    clockType,
-    timerMode,
-    countDown,
-    startCounting,
-    setTimerMode
+    timerState
   } = useTimer()
 
   const [gameState, setGameState] = useState({
@@ -62,12 +57,11 @@ export const useAppContext = () => {
     if (gameConfig.gameStatus === 'playing'){
       deckGenerator(gameConfig.pairs)
       partyGenerator(gameConfig.players)
-      setTimerMode(gameConfig.gameMode)
-      console.log(gameConfig.gameMode)
-      console.log(timerMode)
+      // setTimerMode(gameConfig.gameMode)
+      // console.log(gameConfig.gameMode)
+      // console.log(timerMode)
     }
   },[gameConfig])
-  console.log(timerMode)
 
   const checkForPlayers = () => {
     (players.some( player => player.status === 'waiting'))
@@ -101,8 +95,8 @@ export const useAppContext = () => {
     partyGenerator,
     changePlayerValues,
 
-    countDown,
-    clockType,
+    // countDown,
+    // clockType,
 
     gameState, 
     setGameConfig,
