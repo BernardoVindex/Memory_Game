@@ -51,13 +51,6 @@ export const useAppContext = () => {
     
   //   return  setGameState(defaultGameState)
   // }
-
-  useEffect(()=>{
-    if (!timerState.counter && gameConfig.gameMode === 'Dead_Line') {
-      console.log('conrtrol 2')
-    }
-    
-  },[timerState])
     
   useEffect(() => {
     // Prevet for unnecessary excecute on '.gameStatus' changes

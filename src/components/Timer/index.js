@@ -13,15 +13,46 @@ export const Timer = ({
   const {
     timerState, 
     dispatchTimerState,
-    initializedTimer
-  } = useTimer(gameConfig.time, gameConfig.gameMode)
+    initializedTimer,
+    stopTimer,
+    startCountDawn,
     
+  } = useTimer()
+    
+  // Preparation Timer
   useEffect(() => {
-    initializedTimer()
+    //initializedTimer(timerState.TimerMode)  
+    startCountDawn()
     console.log('Start countdown preparation')
   },[])
+  // console.log(timerState.TimerMode)
+  useEffect(()=>{
+    if (!timerState.counter && timerState.clockType === 'countdown_preparation') {
+      stopTimer()
+      dispatchTimerState({ type: gameConfig.gameMode, payload: gameConfig.time})
+    }
+    
+    if (timerState.clockType === 'digital_clock' && timerState.TimerMode === 'chronometer')
+      console.log('Aumento cronometro') //startCrhonometer()
+    // console.log('Disminuye cronometro')//startCountDawn()
 
-  console.log(gameConfig.time)
+  },[timerState])
+
+  // Time Over
+  useEffect(()=>{
+    if (!timerState.counter && gameConfig.gameMode === 'Dead_Line') {
+        console.log('conrtrol 2')
+    }
+  },[timerState])
+  // Round Finish
+  useEffect(() => {
+    if (!cards.some((card) => card.matched === false)) {
+      console.log('FINISHED!')
+    }
+  },[cards])
+  //console.log(timerState)
+
+  //console.log(timerState.counter)
   // useEffect(() => {
   //   if (!counter)
 
@@ -42,7 +73,6 @@ export const Timer = ({
     }
 
   },[cards])
-  console.log(timerState)
   return (
     <>
       <TimeArea

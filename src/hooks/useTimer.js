@@ -44,41 +44,56 @@ const timerReducer = (state, action) => {
   }
 }
 
-export const useTimer = (dlTime, timerM) => { 
+export const useTimer = () => { 
   const [timerState, dispatchTimerState] = useReducer(timerReducer, initialState)
 
   const id = useRef(null);
   const stopTimer = () => {
     window.clearInterval(id.current)
   }
+
   
-  const initializedTimer = () => {   
+  const initializedTimer = (timerM) => {   
+    console.log(timerM)
     id.current = window.setInterval(() => {
-      if (timerState.TimerMode === 'chronometer') 
+      
+      if (timerM === 'chronometer') 
         return dispatchTimerState({type: 'Add_Time'})
+        console.log(timerM)
 
       dispatchTimerState({type: 'Reduce_Time'})
   }, 1000)
   }
 
-  const handlerMode = () => {
-    if (timerM === 'chronometer') {
-
-    }
+  const startCountDawn = () => {
+    id.current = window.setInterval(() => {
+      dispatchTimerState({type: 'Reduce_Time'})
+    }, 1000)
   }
 
-  useEffect(()=>{
-    if (!timerState.counter && timerState.clockType === 'countdown_preparation') {
-      stopTimer()
-      dispatchTimerState({ type: timerM, payload: dlTime})
-      initializedTimer()
-    }   
-  },[timerState])
+  const startCrhonometer = () => {
+    id.current = window.setInterval(() => {
+      dispatchTimerState({type: 'Add_Time'})
+    }, 1000)
+  }
+
+
+  // useEffect(()=>{
+  //   if (!timerState.counter && timerState.clockType === 'countdown_preparation') {
+  //     stopTimer()
+  //     dispatchTimerState({ type: timerM, payload: dlTime})
+  //     initializedTimer()
+  //   }   
+  // },[timerState])
+  console.log(timerState)  
 
   return {
     timerState, 
     dispatchTimerState,
     initializedTimer,
+    stopTimer,
+    startCountDawn,
+    startCrhonometer
   }
 }
 
