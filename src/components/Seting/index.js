@@ -28,13 +28,13 @@ export const Settings = ({
       <Button 
         className='Speed_Run'
         gameStateKey='gameMode'
-        value='chronometer'
+        value='Speed_Run'
         setFunction={setGameConfig}
       />
       <Button 
         className='Dead_Line'
         gameStateKey='gameMode'
-        value='countDown'
+        value='Dead_Line'
         setFunction={setGameConfig}
       />
       {(gameConfig.gameMode === 'countDown') && (

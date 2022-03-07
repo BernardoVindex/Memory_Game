@@ -14,14 +14,14 @@ export const Timer = ({
     timerState, 
     dispatchTimerState,
     initializedTimer
-  } = useTimer()
+  } = useTimer(gameConfig.time, gameConfig.gameMode)
     
   useEffect(() => {
     initializedTimer()
     console.log('Start countdown preparation')
   },[])
 
-
+  console.log(gameConfig.time)
   // useEffect(() => {
   //   if (!counter)
 

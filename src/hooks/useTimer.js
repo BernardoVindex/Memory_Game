@@ -25,7 +25,7 @@ const timerReducer = (state, action) => {
     case 'Dead_Line':
       return {
         ...state,
-        counter: action.timeLimit,
+        counter: action.payload,
         clockType: 'digital_clock',
         TimerMode: 'countDown'
       }
@@ -54,22 +54,25 @@ export const useTimer = (dlTime, timerM) => {
   
   const initializedTimer = () => {   
     id.current = window.setInterval(() => {
-      (timerState.TimerMode === 'chronometer')
-        ? dispatchTimerState({type: 'Add_Time'})
-        : dispatchTimerState({type: 'Reduce_Time'})
-  }, 1000)}
+      if (timerState.TimerMode === 'chronometer') 
+        return dispatchTimerState({type: 'Add_Time'})
+
+      dispatchTimerState({type: 'Reduce_Time'})
+  }, 1000)
+  }
+
+  const handlerMode = () => {
+    if (timerM === 'chronometer') {
+
+    }
+  }
 
   useEffect(()=>{
-    if (timerState.counter < 0 ) {
+    if (!timerState.counter && timerState.clockType === 'countdown_preparation') {
       stopTimer()
-      dispatchTimerState({type: 'Speed_Run'})
+      dispatchTimerState({ type: timerM, payload: dlTime})
       initializedTimer()
-    }
-    
-    if (timerState.clockType === 'countdown_preparation') {      
-      
-    }
-
+    }   
   },[timerState])
 
   return {

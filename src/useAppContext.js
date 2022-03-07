@@ -31,14 +31,14 @@ export const useAppContext = () => {
 
   const [gameConfig, setGameConfig] = useState({
     typeOfCards: 'Num',
-    gameMode: 'chronometer', //'countDown'
+    gameMode: 'Speed_Run', //'Dead_Line'
     time: 5, // 60000
     //time: 01:00:00 (bttn1 = 60,000-5,000) (bttn1 = 60,000+5,000)
     pairs: 5,
     players: 4,
     gameStatus: 'configuring'
   })
-
+  
   // const changeGameState = (key) => {
   //   const defaultGameState = {
   //     settings: false,
@@ -51,6 +51,13 @@ export const useAppContext = () => {
     
   //   return  setGameState(defaultGameState)
   // }
+
+  useEffect(()=>{
+    if (!timerState.counter && gameConfig.gameMode === 'Dead_Line') {
+      console.log('conrtrol 2')
+    }
+    
+  },[timerState])
     
   useEffect(() => {
     // Prevet for unnecessary excecute on '.gameStatus' changes
