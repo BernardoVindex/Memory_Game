@@ -43,10 +43,6 @@ export const App = () => {
     partyGenerator,
     changePlayerValues,
 
-    // countDown,
-    // chronometer,
-    // clockType,
-
     gameState, 
     changeGameState,
 

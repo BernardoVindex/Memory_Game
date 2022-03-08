@@ -44,7 +44,7 @@ const timerReducer = (state, action) => {
   }
 }
 
-export const useTimer = () => { 
+export const useTimer = (gMode, gTime) => { 
   const [timerState, dispatchTimerState] = useReducer(timerReducer, initialState)
 
   const id = useRef(null);
@@ -52,50 +52,51 @@ export const useTimer = () => {
     window.clearInterval(id.current)
   }
 
-  
-  const initializedTimer = (timerM) => {   
-    console.log(timerM)
-    id.current = window.setInterval(() => {
-      
-      if (timerM === 'chronometer') 
-        return dispatchTimerState({type: 'Add_Time'})
-        console.log(timerM)
 
-      dispatchTimerState({type: 'Reduce_Time'})
+  const initializedTimer = () => {   
+    id.current = window.setInterval(() => {
+      (timerState.TimerMode === 'chronometer') 
+        ? dispatchTimerState({type: 'Add_Time'})        
+        : dispatchTimerState({type: 'Reduce_Time'})
+      
+      
+        console.log(timerState)
   }, 1000)
   }
 
-  const startCountDawn = () => {
-    id.current = window.setInterval(() => {
-      dispatchTimerState({type: 'Reduce_Time'})
-    }, 1000)
-  }
+  useEffect(()=>{
+    if (!timerState.counter) {
+      stopTimer()
+      dispatchTimerState({ type: gMode, payload: gTime})
+      
+      console.log(timerState.TimerMode)  
+    } 
 
-  const startCrhonometer = () => {
-    id.current = window.setInterval(() => {
-      dispatchTimerState({type: 'Add_Time'})
-    }, 1000)
-  }
-
-
-  // useEffect(()=>{
-  //   if (!timerState.counter && timerState.clockType === 'countdown_preparation') {
-  //     stopTimer()
-  //     dispatchTimerState({ type: timerM, payload: dlTime})
-  //     initializedTimer()
-  //   }   
-  // },[timerState])
-  console.log(timerState)  
+    if (!timerState.clockType === 'countdown_preparation') {
+      //initializedTimer()
+      console.log(timerState.TimerMode)  
+    }
+  },[timerState])
 
   return {
     timerState, 
     dispatchTimerState,
     initializedTimer,
     stopTimer,
-    startCountDawn,
-    startCrhonometer
   }
 }
+
+// const startCountDawn = () => {
+//   id.current = window.setInterval(() => {
+//     dispatchTimerState({type: 'Reduce_Time'})
+//   }, 1000)
+// }
+
+// const startCrhonometer = () => {
+//   id.current = window.setInterval(() => {
+//     dispatchTimerState({type: 'Add_Time'})
+//   }, 1000)
+// }
 
   // Warning, activate on useAppCotext
   // useEffect(() => {

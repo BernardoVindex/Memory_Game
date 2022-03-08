@@ -19,7 +19,10 @@ export const useAppContext = () => {
   } = usePlayers()
 
   const {
-    timerState
+    timerState,
+    dispatchTimerState,
+    initializedTimer,
+    stopTimer, 
   } = useTimer()
 
   const [gameState, setGameState] = useState({
@@ -100,7 +103,7 @@ export const useAppContext = () => {
 
     gameState, 
     setGameConfig,
-
+    timerState,
     gameConfig, 
     setGameConfig
   }
