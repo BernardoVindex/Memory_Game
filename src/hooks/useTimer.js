@@ -44,7 +44,7 @@ const timerReducer = (state, action) => {
   }
 }
 
-export const useTimer = () => { 
+export const useTimer = (gMode, gTime) => { 
   const [timerState, dispatchTimerState] = useReducer(timerReducer, initialState)
 
   const id = useRef(null);
@@ -54,12 +54,11 @@ export const useTimer = () => {
 
   
   const initializedTimer = (timerM) => {   
-    console.log(timerM)
     id.current = window.setInterval(() => {
       
       if (timerM === 'chronometer') 
         return dispatchTimerState({type: 'Add_Time'})
-        console.log(timerM)
+
 
       dispatchTimerState({type: 'Reduce_Time'})
   }, 1000)
@@ -85,7 +84,7 @@ export const useTimer = () => {
   //     initializedTimer()
   //   }   
   // },[timerState])
-  console.log(timerState)  
+  
 
   return {
     timerState, 

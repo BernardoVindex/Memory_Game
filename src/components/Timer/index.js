@@ -17,12 +17,13 @@ export const Timer = ({
     stopTimer,
     startCountDawn,
     
-  } = useTimer()
+  } = useTimer(gameConfig.gameMode, gameConfig.time)
     
   // Preparation Timer
   useEffect(() => {
-    //initializedTimer(timerState.TimerMode)  
-    startCountDawn()
+    initializedTimer(timerState.TimerMode)  
+    console.log(timerState.TimerMode)
+    //startCountDawn()
     console.log('Start countdown preparation')
   },[])
   // console.log(timerState.TimerMode)
@@ -30,10 +31,13 @@ export const Timer = ({
     if (!timerState.counter && timerState.clockType === 'countdown_preparation') {
       stopTimer()
       dispatchTimerState({ type: gameConfig.gameMode, payload: gameConfig.time})
+      initializedTimer(timerState.TimerMode)  
+      console.log(timerState)
     }
     
-    if (timerState.clockType === 'digital_clock' && timerState.TimerMode === 'chronometer')
-      console.log('Aumento cronometro') //startCrhonometer()
+    // if (timerState.clockType === 'digital_clock' && timerState.TimerMode === 'chronometer')
+
+
     // console.log('Disminuye cronometro')//startCountDawn()
 
   },[timerState])
