@@ -1,6 +1,6 @@
 import { Figure } from './styles'
 
-export const Card = ({ cardID, value, fliped, matched, dispatch, playersDispatch }) => {
+export const Card = ({ cardID, value, fliped, matched, changeCardsValues }) => {
 
   // const hanlderFlip = () => {  
   //   if (!matched) {
@@ -15,6 +15,9 @@ export const Card = ({ cardID, value, fliped, matched, dispatch, playersDispatch
   //     })
   //   }
   // }
+  const hanlderFlip = () => {
+    
+  }
 
   return (
     <>

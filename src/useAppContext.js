@@ -18,13 +18,6 @@ export const useAppContext = () => {
     changePlayerValues
   } = usePlayers()
 
-  const {
-    timerState,
-    dispatchTimerState,
-    initializedTimer,
-    stopTimer, 
-  } = useTimer()
-
   const [gameState, setGameState] = useState({
     settings: true,
     playing: false,
