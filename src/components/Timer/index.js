@@ -13,76 +13,24 @@ export const Timer = ({
   const {
     timerState, 
     dispatchTimerState,
-    initializedTimer,
-    stopTimer,
-    startCountDawn,
-    
-  } = useTimer(gameConfig.gameMode, gameConfig.time)
-    
-  // Preparation Timer
+    initiCounter,
+    stopTimer
+  } = useTimer()
+  
   useEffect(() => {
-    initializedTimer(timerState.TimerMode)  
-    console.log(timerState.TimerMode)
-    //startCountDawn()
-    console.log('Start countdown preparation')
+    dispatchTimerState({ 
+      type: gameConfig.gameMode,
+      payload: gameConfig.time
+    })
+    initiCounter()
+    console.log(timerState)
   },[])
-  // console.log(timerState.TimerMode)
-  useEffect(()=>{
-    if (!timerState.counter && timerState.clockType === 'countdown_preparation') {
-      stopTimer()
-      dispatchTimerState({ type: gameConfig.gameMode, payload: gameConfig.time})
-      initializedTimer(timerState.TimerMode)  
-      console.log(timerState)
-    }
-    
-    // if (timerState.clockType === 'digital_clock' && timerState.TimerMode === 'chronometer')
 
-
-    // console.log('Disminuye cronometro')//startCountDawn()
-
-  },[timerState])
-
-  // Time Over
-  useEffect(()=>{
-    if (!timerState.counter && gameConfig.gameMode === 'Dead_Line') {
-        console.log('conrtrol 2')
-    }
-  },[timerState])
-  // Round Finish
-  useEffect(() => {
-    if (!cards.some((card) => card.matched === false)) {
-      console.log('FINISHED!')
-    }
-  },[cards])
-  //console.log(timerState)
-
-  //console.log(timerState.counter)
-  // useEffect(() => {
-  //   if (!counter)
-
-  //   playersDispatch({ 
-  //     type: 'onTurn', playerStatus: 'waiting'
-  //   })
-  // },[counter])
-
-  useEffect(() => {
-    if (!cards.some((card) => card.matched === false)) {
-    //   playersDispatch({ 
-    //   type: 'onFinish',
-    //   payload: counter,
-    //   playerStatus: 'onMatch'
-    //   })
-
-      setGameConfig()
-    }
-
-  },[cards])
   return (
     <>
       <TimeArea
-        clockType='Tipo de relok'
       >
-        {}
+        {timerState.counter}
       </TimeArea>
     </>
   )

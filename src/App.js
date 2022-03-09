@@ -10,6 +10,7 @@ import { FooterApp } from './components/Footer'
 import { PlayerCards } from './components/PlayerCard'
 import { Card } from './components/Card'
 import { Brake } from './components/Brake'
+import { PrepTimer } from './components/PerpTimer'
 
 /** To program:
  * - Create one Component for countdown and other for timer
@@ -76,15 +77,21 @@ export const App = () => {
     </HeaderApp>
 
     {(gameConfig.gameStatus === 'playing') && (
-      <Timer 
-        cards={deck}
-        players={players}
+      <>
+      <PrepTimer 
         gameConfig={gameConfig}
+      >
+        <Timer 
+          cards={deck}
+          players={players}
+          gameConfig={gameConfig}
 
 
-        setGameConfig={setGameConfig}
-        changePlayerValues={changePlayerValues}
-      />
+          setGameConfig={setGameConfig}
+          changePlayerValues={changePlayerValues}
+        />
+      </PrepTimer>
+      </>
     )}
 
     {(gameConfig.gameStatus === 'gameBoard') && (

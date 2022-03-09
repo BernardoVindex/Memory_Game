@@ -1,51 +1,9 @@
 import { useState, useEffect, useRef, useReducer } from "react";
 
-const initialState = {
-  counter: 3,
-  clockType: 'countdown_preparation',
-  TimerMode: 'countDown'
-}
 
-const timerReducer = (state, action) => {
-  switch (action.type) {
-    case 'Preparation':
-      return {
-        ...state,
-        counter: 3,
-        clockType: 'countdown_preparation',
-        TimerMode: 'countDown'
-      }
-    case 'Speed_Run':
-      return {
-        ...state,
-        counter: 0,
-        clockType: 'digital_clock',
-        TimerMode: 'chronometer'
-      }
-    case 'Dead_Line':
-      return {
-        ...state,
-        counter: action.payload,
-        clockType: 'digital_clock',
-        TimerMode: 'countDown'
-      }
-    case 'Add_Time':
-      return {
-        ...state,
-        counter: state.counter + 1,
-      }
-    case 'Reduce_Time':
-      return {
-        ...state,
-        counter: state.counter - 1,
-      }
-    default:
-      throw new Error(`type action desconocido: ${action.type}`)
-  }
-}
-
-export const useTimer = (gMode, gTime) => { 
-  const [timerState, dispatchTimerState] = useReducer(timerReducer, initialState)
+export const useTimer = (gTime, gMode) => { 
+  const [counter, setCounter] = useState(gTime)
+  const [timerMode, setTimerMode] = useState(gMode)
 
   const id = useRef(null);
   const stopTimer = () => {
@@ -53,27 +11,13 @@ export const useTimer = (gMode, gTime) => {
   }
 
   
-  const initializedTimer = (timerM) => {   
+  const initiCounter = () => {   
     id.current = window.setInterval(() => {
       
-      if (timerM === 'chronometer') 
-        return dispatchTimerState({type: 'Add_Time'})
-
-
-      dispatchTimerState({type: 'Reduce_Time'})
+      if (timerMode === 'DeadLine') 
+        return setCounter( counter - 1)
+        
   }, 1000)
-  }
-
-  const startCountDawn = () => {
-    id.current = window.setInterval(() => {
-      dispatchTimerState({type: 'Reduce_Time'})
-    }, 1000)
-  }
-
-  const startCrhonometer = () => {
-    id.current = window.setInterval(() => {
-      dispatchTimerState({type: 'Add_Time'})
-    }, 1000)
   }
 
 
@@ -81,18 +25,16 @@ export const useTimer = (gMode, gTime) => {
   //   if (!timerState.counter && timerState.clockType === 'countdown_preparation') {
   //     stopTimer()
   //     dispatchTimerState({ type: timerM, payload: dlTime})
-  //     initializedTimer()
+  //     initiCounter()
   //   }   
   // },[timerState])
   
 
   return {
-    timerState, 
-    dispatchTimerState,
-    initializedTimer,
-    stopTimer,
-    startCountDawn,
-    startCrhonometer
+    counter, 
+    setTimerMode,
+    initiCounter,
+    stopTimer
   }
 }
 
@@ -135,3 +77,51 @@ export const useTimer = (gMode, gTime) => {
   //       ? time + 1
   //       : time - 1})
   // }, 1000)}
+
+
+  
+// const initialState = {
+//   counter: 3,
+//   clockType: 'countdown_preparation',
+//   TimerMode: 'countDown'
+// }
+
+// const timerReducer = (state, action) => {
+//   switch (action.type) {
+//     case 'Preparation':
+//       return {
+//         ...state,
+//         counter: 3,
+//         clockType: 'countdown_preparation',
+//         TimerMode: 'countDown'
+//       }
+//     case 'Speed_Run':
+//       return {
+//         ...state,
+//         counter: 1,
+//         clockType: 'digital_clock',
+//         TimerMode: 'chronometer'
+//       }
+//     case 'Dead_Line':
+//       return {
+//         ...state,
+//         counter: action.payload,
+//         clockType: 'digital_clock',
+//         TimerMode: 'countDown'
+//       }
+//     case 'Add_Time':
+//       return {
+//         ...state,
+//         counter: state.counter + 1,
+//       }
+//     case 'Reduce_Time':
+//       return {
+//         ...state,
+//         counter: state.counter - 1,
+//       }
+//     default:
+//       throw new Error(`type action desconocido: ${action.type}`)
+//   }
+// }
+
+// const [timerState, dispatchTimerState] = useReducer(timerReducer, initialState)
