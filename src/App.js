@@ -11,7 +11,7 @@ import { PlayerCards } from './components/PlayerCard'
 import { Card } from './components/Card'
 import { Brake } from './components/Brake'
 import { PrepTimer } from './components/PerpTimer'
-
+//ALKA-CIP/ACID-CIP
 /** To program:
  * - Create one Component for countdown and other for timer
  * - Conexión to API Instagram

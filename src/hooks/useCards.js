@@ -46,27 +46,28 @@ export const useCards = (pairs) => {
 
   const changeCardsValues = (
     cardID,
-    atribute,
-    value 
+    atributeValue
     ) => {
-      newDeckValues[cardID][atribute] = value
+      newDeckValues[cardID].fliped = !atributeValue
 
     return setDeck(newDeckValues)
   }
 
-  const evalPairFliped = (value) => {
-    let cardKey
+  const evalPairFliped = (resolve) => {
+    let atribute
     
-    (value)
+    (resolve)
       ? atribute = 'matched'
       : atribute = 'fliped'
     
       newDeckValues.map( card => {
-      if (card.fliped) card[cardKey] = value
+      if (card.fliped) card[atribute] = resolve
     })
 
     setDeck(newDeckValues)
   }
+
+  console.log(deck)
 
   return {
     deck,

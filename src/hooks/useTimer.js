@@ -13,20 +13,16 @@ export const useTimer = () => {
   const initiCounter = (gMode, gTime) => {   
     setTimerMode(gMode)
     setCounter(gTime)
-    console.log({timerMode})
   }
   
   // I´m pretty sure that there´s an error on this value
   // For instance, this code works
   useEffect(() => {
     if (timerMode !== undefined) {
-      console.log({timerMode})
       id.current = window.setInterval(() => { 
         (timerMode === 'Speed_Run') 
           ? setCounter( counter =>  counter + 1)
           : setCounter( counter =>  counter - 1)
-  
-          console.log({timerMode})
       }, 1000)
     }
 

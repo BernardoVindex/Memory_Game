@@ -79,8 +79,6 @@ export const useAppContext = () => {
     }
   },[deck])
 
-  console.log(gameConfig)
-
   return {
     deck,
     deckGenerator,
@@ -96,7 +94,6 @@ export const useAppContext = () => {
 
     gameState, 
     setGameConfig,
-    timerState,
     gameConfig, 
     setGameConfig
   }
