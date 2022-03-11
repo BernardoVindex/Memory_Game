@@ -32,7 +32,8 @@ export const usePlayers = (pairs) => {
       moves: 0,
       pairs: 0,
       time: 0,
-      status: 'waiting' })
+      status: 'waiting' 
+    })
   }
     setPlayers(newParty)
   }
@@ -42,11 +43,15 @@ export const usePlayers = (pairs) => {
     targetKey,
     newValue
     ) => {
-
     const playerId = newPartyValues.findIndex( player => 
       player.status === currentStatus
     )
+    
+    if (targetKey === 'moves')
+      return newPartyValues[playerId].moves += newValue
+    
     newPartyValues[playerId][targetKey] = newValue
+
     setPlayers(newPartyValues)
   }
 

@@ -67,8 +67,6 @@ export const useCards = (pairs) => {
     setDeck(newDeckValues)
   }
 
-  console.log(deck)
-
   return {
     deck,
     deckGenerator,

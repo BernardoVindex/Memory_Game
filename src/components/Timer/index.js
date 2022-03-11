@@ -7,9 +7,10 @@ export const Timer = ({
   players,
   gameConfig,
   setGameConfig,
-  changePlayerValues
+  changePlayerValues,
+  checkForPlayers
 }) => {  
-  
+
   const {
     counter,
     setCounter,
@@ -21,7 +22,22 @@ export const Timer = ({
     (gameConfig.gameMode === 'Speed_Run')
      ? initiCounter(gameConfig.gameMode, 0)
      : initiCounter(gameConfig.gameMode, gameConfig.time)
+
+     changePlayerValues('waiting','status','onMatch')
+    //  changePlayerValues(
+    //   'waiting',
+    //   {status : 'onMatch'}
+    //  )
   },[])
+
+  useEffect(() => {
+
+    if (!cards.some((card) => card.matched === false)) {
+      changePlayerValues('onMatch','time',counter)
+      checkForPlayers()
+      
+    }
+  },[cards])
 
   return (
     <>

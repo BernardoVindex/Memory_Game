@@ -48,7 +48,9 @@ export const App = () => {
     changeGameState,
 
     gameConfig, 
-    setGameConfig
+    setGameConfig,
+
+    checkForPlayers
   } = useAppContext() 
 
   return (
@@ -85,6 +87,7 @@ export const App = () => {
 
           setGameConfig={setGameConfig}
           changePlayerValues={changePlayerValues}
+          checkForPlayers={checkForPlayers}
         />
       </PrepTimer>
       </>
@@ -123,6 +126,7 @@ export const App = () => {
           fliped={card.fliped}
           matched={card.matched}
           changeCardsValues={changeCardsValues}
+          changePlayerValues={changePlayerValues}
       />
       )}
     />

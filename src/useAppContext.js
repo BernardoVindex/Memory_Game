@@ -60,11 +60,18 @@ export const useAppContext = () => {
   },[gameConfig])
 
   const checkForPlayers = () => {
-    (players.some( player => player.status === 'waiting'))
-      ? gameDispatch({type: 'brake'})
-      : gameDispatch({type: 'endGame'})
+    let nextGameState
 
-    deckDispatch({ type: 'newDeck', payload: deck.length / 2})
+    (players.some( player => player.status === 'waiting'))
+      ? nextGameState = 'brake'
+      : nextGameState = 'gameBoard'
+
+      setGameConfig(prevState => ({
+      ...prevState, 
+      gameStatus : nextGameState
+    }))
+
+    //deckGenerator(deck.length / 2)
   }
 
   useEffect(() => {
@@ -73,11 +80,13 @@ export const useAppContext = () => {
     )
     if (pairFliped.length > 1) 
       evalPairFliped(pairFliped[0].value === pairFliped[1].value)
-      
+
     if (!deck.some((card) => card.matched === false)) {
-      checkForPlayers()
+      //checkForPlayers()
     }
   },[deck])
+
+  console.log(gameConfig)
 
   return {
     deck,
@@ -95,6 +104,8 @@ export const useAppContext = () => {
     gameState, 
     setGameConfig,
     gameConfig, 
-    setGameConfig
+    setGameConfig,
+
+    checkForPlayers
   }
 }
